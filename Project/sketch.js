@@ -1,13 +1,15 @@
 var settings;
 var node;
+var grid;
 
 function setup() {
   settings = new Settings(400, 400);
-  node = new Node(100, 100, 30, 30);
+  grid = new Grid(10, 10);
   createCanvas(settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT);
+  grid.createGrid()
 }
 
 function draw() {
   background(30); 
-  node.drawNode();
+  grid.drawGrid();
 }
