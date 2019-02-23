@@ -1,5 +1,8 @@
+var settings;
+
 function setup() {
-  createCanvas(400, 400);
+  settings = new Settings(100, 400);
+  createCanvas(settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT);
 }
 
 function draw() {
