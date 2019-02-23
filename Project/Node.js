@@ -14,3 +14,11 @@ class Node {
         rect(this.x, this.y, this.width, this.height);
     }
 }
+
+class BlockedNode extends Node {
+
+    constructor(x, y, width, height){
+        super(x, y, width, height);
+        this.col = color(200, 0, 0);
+    }
+}

@@ -9,8 +9,13 @@ class Grid {
     createGrid() {
         for(var i = 0; i < this.rows; i++) {
             for(var j = 0; j < this.cols; j++) {
-                this.grid.push(new Node(i * 10, j * 10, 10, 10));  
-            }
+                if(i == 5 && j == 5) {
+                    this.grid.push(new BlockedNode(i * 10, j * 10, 10, 10));  
+                }
+                else{
+                    this.grid.push(new Node(i * 10, j * 10, 10, 10));  
+                }
+            } 
         }
     }
 
