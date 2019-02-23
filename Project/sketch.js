@@ -13,3 +13,7 @@ function draw() {
   background(30); 
   grid.drawGrid();
 }
+
+function mousePressed() {
+  grid.mouseClicked();
+}

@@ -25,4 +25,9 @@ class Grid {
         }
     }
 
+    mouseClicked() {
+        for(var i = 0; i < this.grid.length; i++){
+            this.grid[i].clicked();
+        }
+    }
 }
