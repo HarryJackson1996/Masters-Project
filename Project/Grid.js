@@ -10,10 +10,10 @@ class Grid {
         for(var i = 0; i < this.rows; i++) {
             for(var j = 0; j < this.cols; j++) {
                 if(i == 5 && j == 5) {
-                    this.grid.push(new BlockedNode(i * 10, j * 10, 10, 10));  
+                    this.grid.push(new BlockedNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));  
                 }
                 else{
-                    this.grid.push(new Node(i * 10, j * 10, 10, 10));  
+                    this.grid.push(new Node(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));  
                 }
             } 
         }

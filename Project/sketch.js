@@ -3,9 +3,11 @@ var node;
 var grid;
 
 function setup() {
-  settings = new Settings(400, 400);
-  grid = new Grid(10, 10);
-  createCanvas(settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT);
+  settings = new Settings(400, 400, 20);
+  createCanvas(settings.getWidth(), settings.getHeight());
+
+  grid = new Grid(floor(settings.getWidth()/settings.getNodeSize()), 
+                  floor(settings.getHeight()/settings.getNodeSize()));
   grid.createGrid()
 }
 
