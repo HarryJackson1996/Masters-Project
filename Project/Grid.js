@@ -1,10 +1,9 @@
 class Grid {
 
-    constructor(rows, cols, square_size) {
+    constructor(rows, cols) {
         this.rows = rows;
         this.cols = cols;
         this.grid = [];
-        this.size = square_size;
     }
 
     createGrid() {
