@@ -7,10 +7,16 @@ class Grid {
     }
 
     createGrid() {
+        var settings_X = (((settings.getWidth()-1)/settings.getNodeSize())-1);
+        var settings_Y = (((settings.getHeight()-1)/settings.getNodeSize())-1);
+
         for(var i = 0; i < this.rows; i++) {
             for(var j = 0; j < this.cols; j++) {
-                if(i == 5 && j == 5) {
+                if(i == 0 || i == settings_X || j == 0 || j == settings_Y) {
                     this.grid.push(new BlockedNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));  
+                }
+                else if(i == floor(settings_X/2) && j == floor(settings_Y - 2)){
+                    this.grid.push(new GoalNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize())); 
                 }
                 else{
                     this.grid.push(new Node(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));  
@@ -27,7 +33,9 @@ class Grid {
 
     mouseClicked() {
         for(var i = 0; i < this.grid.length; i++){
-            this.grid[i].clicked();
+            if(this.grid[i].goal != true){
+                this.grid[i].clicked();
+            }
         }
     }
 }
