@@ -9,6 +9,7 @@ function setup() {
   grid = new Grid(floor(settings.getWidth()/settings.getNodeSize()), 
                   floor(settings.getHeight()/settings.getNodeSize()));
   grid.createGrid();
+  GUI.createGUI();
 }
 
 function draw() {
