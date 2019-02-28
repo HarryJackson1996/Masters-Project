@@ -36,8 +36,8 @@ class Grid {
 
     moveStartNode() {
         for(var i = 0; i < this.grid.length; i++){
-            if(mouseX > this.grid[i].x && mouseX < this.grid[i].x + 20
-            && mouseY > this.grid[i].y && mouseY < this.grid[i].y + 20) {
+            if(mouseX > this.grid[i].x && mouseX < this.grid[i].x + this.grid[i].width
+            && mouseY > this.grid[i].y && mouseY < this.grid[i].y + this.grid[i].height) {
                 if(this.grid[i].start == true && mouseIsPressed) {
                     this.start = true;
                     this.x = this.grid[i];
@@ -57,8 +57,8 @@ class Grid {
 
     moveGoalNode() {
         for(var i = 0; i < this.grid.length; i++){
-            if(mouseX > this.grid[i].x && mouseX < this.grid[i].x + 20
-            && mouseY > this.grid[i].y && mouseY < this.grid[i].y + 20) {
+            if(mouseX > this.grid[i].x && mouseX < this.grid[i].x + this.grid[i].width
+            && mouseY > this.grid[i].y && mouseY < this.grid[i].y + this.grid[i].height) {
                 if(this.grid[i].goal == true && mouseIsPressed) {
                     this.goal = true;
                     this.x = this.grid[i];
