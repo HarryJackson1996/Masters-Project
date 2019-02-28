@@ -6,6 +6,9 @@ class Node {
         this.width = width;
         this.height = height;
         this.col = color(255, 255, 255);
+        this.goal = false;
+        this.blocked = false;
+        this.start = false;
     }
 
     drawNode() {
@@ -40,6 +43,7 @@ class Node {
     
     setGoal() {
         this.col = color(0, 200, 0);
+        this.blocked = true;
         return this.goal = true;
     }
 
@@ -68,6 +72,7 @@ class GoalNode extends Node {
     constructor(x, y, width, height){
         super(x, y, width, height);
         this.goal = true;
+        this.blocked = true;
         this.col = color(0, 200, 0);
     }
 }

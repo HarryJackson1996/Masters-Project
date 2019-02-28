@@ -8,7 +8,7 @@ function setup() {
 
   grid = new Grid(floor(settings.getWidth()/settings.getNodeSize()), 
                   floor(settings.getHeight()/settings.getNodeSize()));
-  grid.createGrid()
+  grid.createGrid();
 }
 
 function draw() {
@@ -20,6 +20,7 @@ function draw() {
 
 function mousePressed() {
   grid.mouseClicked();
+
 }
 
 function mouseDragged() {

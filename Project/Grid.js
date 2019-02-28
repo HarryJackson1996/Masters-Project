@@ -42,7 +42,7 @@ class Grid {
                     this.start = true;
                     this.x = this.grid[i];
                 }
-                else if(this.start == true && mouseIsPressed){
+                else if(this.start == true && mouseIsPressed && this.grid[i].goal !=true){
                     this.y = this.grid[i];
                     this.y.setStart();
                     this.x.setNormal();
@@ -63,7 +63,7 @@ class Grid {
                     this.goal = true;
                     this.x = this.grid[i];
                 }
-                else if(this.goal == true && mouseIsPressed){
+                else if(this.goal == true && mouseIsPressed & this.grid[i].start !=true){
                     this.y = this.grid[i];
                     this.y.setGoal();
                     this.x.setNormal();
@@ -75,7 +75,7 @@ class Grid {
             }
         }
     }
-
+    
     mouseClicked() {
         for(var i = 0; i < this.grid.length; i++){
             if(this.grid[i].goal != true && this.grid[i].start != true){
