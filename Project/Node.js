@@ -52,3 +52,12 @@ class GoalNode extends Node {
         this.col = color(0, 200, 0);
     }
 }
+
+class StartNode extends Node {
+
+    constructor(x, y, width, height){
+        super(x, y, width, height);
+        this.col = color(0, 220, 255);
+        this.start = true;
+    }
+}
