@@ -83,4 +83,8 @@ class Grid {
             }
         }
     }
+
+    getGrid() {
+        return this.grid;
+    }
 }

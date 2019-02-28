@@ -56,6 +56,22 @@ class Node {
         this.col = color(0, 220, 255);
         return this.start = true;  
     }
+
+    getX(){
+        return this.x;
+    }
+
+    getY() {
+        return this.y;
+    }
+    
+    getWidth() {
+        return this.width;
+    }
+    
+    getHeight() {
+        return this.height;
+    }
 }
 
 class BlockedNode extends Node {
