@@ -6,8 +6,6 @@ class Node {
         this.width = width;
         this.height = height;
         this.col = color(255, 255, 255);
-        this.blocked = false;
-        this.goal = false;
     }
 
     drawNode() {
@@ -21,17 +19,38 @@ class Node {
             if(mouseY > this.y && mouseY < this.y + this.height){ 
                 switch(true) {
                     case this.blocked: 
-                    this.col = color(255, 255, 255);
-                    this.blocked = false;
+                    this.setNormal();
                     break;
 
                     default: 
-                    this.col = color(200, 0, 0);
-                    this.blocked = true;
+                    this.setBlocked();
                     break;
                 }
             }
         }
+    }
+
+    setNormal() {
+        this.col = color(255, 255, 255);
+        this.goal = false;
+        this.blocked = false;
+        this.start = false;
+        return;
+    }
+    
+    setGoal() {
+        this.col = color(0, 200, 0);
+        return this.goal = true;
+    }
+
+    setBlocked() {
+        this.col = color(200, 0, 0);
+        return this.blocked = true;  
+    }
+
+    setStart() {
+        this.col = color(0, 220, 255);
+        return this.start = true;  
     }
 }
 
@@ -57,7 +76,7 @@ class StartNode extends Node {
 
     constructor(x, y, width, height){
         super(x, y, width, height);
-        this.col = color(0, 220, 255);
         this.start = true;
+        this.col = color(0, 220, 255);
     }
 }

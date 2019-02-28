@@ -34,6 +34,48 @@ class Grid {
         }
     }
 
+    moveStartNode() {
+        for(var i = 0; i < this.grid.length; i++){
+            if(mouseX > this.grid[i].x && mouseX < this.grid[i].x + 20
+            && mouseY > this.grid[i].y && mouseY < this.grid[i].y + 20) {
+                if(this.grid[i].start == true && mouseIsPressed) {
+                    this.start = true;
+                    this.x = this.grid[i];
+                }
+                else if(this.start == true && mouseIsPressed){
+                    this.y = this.grid[i];
+                    this.y.setStart();
+                    this.x.setNormal();
+                    this.start = false;
+                }
+                else {
+                    return this.start = false;
+                }
+            }
+        }
+    }
+
+    moveGoalNode() {
+        for(var i = 0; i < this.grid.length; i++){
+            if(mouseX > this.grid[i].x && mouseX < this.grid[i].x + 20
+            && mouseY > this.grid[i].y && mouseY < this.grid[i].y + 20) {
+                if(this.grid[i].goal == true && mouseIsPressed) {
+                    this.goal = true;
+                    this.x = this.grid[i];
+                }
+                else if(this.goal == true && mouseIsPressed){
+                    this.y = this.grid[i];
+                    this.y.setGoal();
+                    this.x.setNormal();
+                    this.goal = false;
+                }
+                else {
+                    return this.goal = false;
+                }
+            }
+        }
+    }
+
     mouseClicked() {
         for(var i = 0; i < this.grid.length; i++){
             if(this.grid[i].goal != true && this.grid[i].start != true){

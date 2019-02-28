@@ -14,8 +14,15 @@ function setup() {
 function draw() {
   background(30); 
   grid.drawGrid();
+  grid.moveStartNode();
+  grid.moveGoalNode();
 }
 
 function mousePressed() {
   grid.mouseClicked();
+}
+
+function mouseDragged() {
+  grid.moveStartNode();
+  grid.moveGoalNode();
 }
