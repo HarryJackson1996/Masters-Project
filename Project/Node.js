@@ -19,13 +19,16 @@ class Node {
     clicked() {
         if(mouseX > this.x && mouseX < this.x + this.width){      
             if(mouseY > this.y && mouseY < this.y + this.height){ 
-                if(this.blocked == false) {
-                    this.col = color(200, 0, 0);
-                    this.blocked = true;
-                } 
-                else {
+                switch(true) {
+                    case this.blocked: 
                     this.col = color(255, 255, 255);
                     this.blocked = false;
+                    break;
+
+                    default: 
+                    this.col = color(200, 0, 0);
+                    this.blocked = true;
+                    break;
                 }
             }
         }
