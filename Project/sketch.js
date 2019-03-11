@@ -1,18 +1,15 @@
-var settings;
 var node;
 var grid;
-var agent;
-
+var GA;
 
 function setup() {
   settings = new Settings(400, 400, 20);
   createCanvas(settings.getWidth(), settings.getHeight());
-  agent = new Agent(0, 0, 10, 10);
-
+  GA = new Genetic(10);
+  GA.createPopulation();
   grid = new Grid(floor(settings.getWidth()/settings.getNodeSize()), 
                   floor(settings.getHeight()/settings.getNodeSize()));
   grid.createGrid();
-  agent.setSpawn(grid);
 
   GUI.createGUI();
 }
@@ -20,11 +17,9 @@ function setup() {
 function draw() {
   background(30); 
   grid.drawGrid();
-  agent.update();
-  agent.checkCollision();
-  agent.show(); 
   grid.moveStartNode();
   grid.moveGoalNode();
+  GA.runPopulation();
 }
 
 function mousePressed() {

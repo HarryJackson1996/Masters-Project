@@ -21,10 +21,7 @@ class GUI {
             createCanvas(settings.getWidth(), settings.getHeight());
             grid = new Grid(floor(settings.getWidth()/settings.getNodeSize()), 
             floor(settings.getHeight()/settings.getNodeSize()));
-            agent = new Agent(0, 0, 20, 20);
-            grid.createGrid();
-            agent.setSpawn(grid);
-    
+            grid.createGrid();    
             }};
             map_folder.add(this.obj, 'Update');
     }
