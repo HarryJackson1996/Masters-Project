@@ -30,8 +30,8 @@ class Agent {
                     return this.CRASHED = true;
                 }
             }
-            }
         }
+    }
     
     setSpawn(grid) {
         this.grid = grid.getGrid();
