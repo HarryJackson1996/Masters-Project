@@ -1,6 +1,6 @@
 class Agent {
 
-    constructor(x, y, width, height) {
+    constructor(x, y, width, height, brain) {
         this.VELOCITY = p5.Vector.random2D();
         this.ACCELERATION = createVector();
         this.CRASHED = false;
@@ -9,6 +9,12 @@ class Agent {
         this.height = height;
         this.width = width;
         this.fitness = 0;
+        if(brain instanceof NeuralNetwork) {
+            this.brain = brain.copy();
+        } 
+        else {
+            this.brain = new NeuralNetwork(6, 14, 1);
+        }    
     }
 
     checkCollision() {
@@ -56,44 +62,6 @@ class Agent {
         this.ACCELERATION.add(force);
     }
 
-    getHeight() {
-        //console.log(this.POSITION.y);
-        return this.height;
-    }    
-
-    getWidth() {
-        //console.log(this.width);
-        return this.width;
-    }
-
-    getX() {
-        // console.log(this.POSITION.x);
-        return this.x;
-    }
-
-    getY() {
-        // console.log(this.POSITION.y);
-        return this.y;
-    }
-
-    moveDown() {
-        return this.y += 2;
-    }
-
-    moveUp() {
-        if(this.CRASHED == false) {
-        return this.x += 2;
-        }
-    }
-
-    moveRight() {
-        return this.x += 2;
-    }
-
-    moveLeft() {
-        return this.y -= 2;
-    }   
-
     getFitness() {
         var getGrid = grid.getGrid();
         var goalX;
@@ -108,5 +76,73 @@ class Agent {
         var distance = dist(this.x, this.y, goalX, goalY);
         this.fitness = 1/distance;
         return this.fitness;
+    }  
+    
+    makeDecision(grid) {
+        var closest = 0;
+        for(var i = 0; i < grid.length; i++) {
+            if(grid[i].blocked == true) {
+                var d = dist(this.x, this.y, grid[i].x, grid[i].y);
+                    if (closest == 0) {
+                        closest = d;
+                    } else if (closest > d) {
+                        closest = d;
+                    }
+            }
+        }
+
+        let inputs = [];
+        inputs[0] = this.x;
+        inputs[1] = this.y;
+        inputs[2] = (closest);
+        inputs[3] = grid.getGoalX();
+        inputs[4] = grid.getGoalY();
+        inputs[5] = grid.getWidth();
+       
+        let output = this.brain.predict(inputs); 
+
+        if(output < 0.3333) {
+            this.moveLeft();
+        } 
+        else if(output >= 0.3333 && output < 0.6666) {
+            this.moveUp();
+        }
+        else if(output >= 0.6666 && output < 1) {
+            this.moveRight();
+
+        }
+    }
+    
+    getHeight() {
+        return this.height;
     }    
+
+    getWidth() {
+        return this.width;
+    }
+
+    getX() {
+        return this.x;
+    }
+
+    getY() {
+        return this.y;
+    }
+
+    moveDown() {
+        return this.y += 2;
+    }
+
+    moveUp() {
+        return this.x += 2;
+    }
+
+    moveRight() {
+        return this.x += 2;
+    }
+
+    moveLeft() {
+        return this.y -= 2;
+    }   
+
 }
