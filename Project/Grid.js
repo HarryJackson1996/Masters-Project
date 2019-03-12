@@ -87,4 +87,28 @@ class Grid {
     getGrid() {
         return this.grid;
     }
+
+    getWidth() {
+        for(var i = 0; this.grid.length; i++){ 
+            return this.grid[i].getWidth();
+        }
+    }
+
+    getGoalX() {
+        for(var i = 0; i < this.grid.length; i++){
+            if(this.grid[i].goal == true) {
+                //console.log(this.grid[i].x);
+                return this.grid[i].x;
+            }
+        }
+    }
+
+    getGoalY() {
+        for(var i = 0; i < this.grid.length; i++){
+            if(this.grid[i].goal == true) {
+                return this.grid[i].y;
+            }
+        }
+    }
+    
 }

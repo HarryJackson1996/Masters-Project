@@ -26,7 +26,7 @@ class Genetic {
 
     runPopulation() {
         for(var i = 0; i < this.agents.length; i++) {
-            this.agents[i].moveUp();
+            this.agents[i].makeDecision(grid);
             this.agents[i].checkCollision();
             this.agents[i].show();
         } 
@@ -68,6 +68,18 @@ class Genetic {
     }
 
     selection() {
+    
+        var myGrid = grid.getGrid();
+        var x;
+        var y;
+
+        for(var i = 0; i < myGrid.length; i++) {
+            if(myGrid[i].start == true) {
+                x = myGrid[i].getX();
+                y = myGrid[i].getY();
+            }
+        }
+
         for(var i = 0; i < this.population_size; i++) {
             var n = this.new_agents[i].fitness * 10;
             for(var j = 0; j < n; j++) {
@@ -75,7 +87,10 @@ class Genetic {
             }
         } 
         var picked = random(this.matingPool);
-        var child = new Agent(picked.x - 100, picked.y, 10, 10)
+        //console.log(picked.brain.weights_ho.data + ": " + picked.fitness);
+        var child = new Agent(x, y, 10, 10, picked.brain);
+        //console.log(child.brain.weights_ho.data + ": " + picked.fitness);
+        noLoop()
         return child;
         
     }
