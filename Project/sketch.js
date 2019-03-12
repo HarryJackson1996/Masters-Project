@@ -14,7 +14,7 @@ function setup() {
   GA.createPopulation();
 
 
-  GUI.createGUI();
+  // GUI.createGUI();
 }
 
 function draw() {
@@ -23,8 +23,8 @@ function draw() {
   grid.moveStartNode();
   grid.moveGoalNode();
   GA.checkPopulation();
-  GA.runPopulation();
   GA.newPopulation();
+  GA.runPopulation();
 }
 
 function mousePressed() {

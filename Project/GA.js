@@ -4,6 +4,7 @@ class Genetic {
         this.population_size = population_size;
         this.agents = [];
         this.new_agents = [];
+        this.matingPool = [];
     }
 
     createPopulation() {
@@ -40,9 +41,13 @@ class Genetic {
     }
 
     newPopulation() {
-        this.calculateFitness();
-        if(this.agents.length == 0) {
-            this.createPopulation();
+        if(this.agents.length == 0){
+            this.calculateFitness();
+            for(var i = 0; i < this.population_size; i++){
+                this.agents[i] = this.selection();
+
+            }
+            this.new_agents = [];
         }
     }
 
@@ -59,6 +64,19 @@ class Genetic {
         for(var i = 0; i < this.new_agents.length; i++) {
             this.new_agents[i].fitness /= maximum_fitness;
         }        
+    }
+
+    selection() {
+        for(var i = 0; i < this.population_size; i++) {
+            var n = this.new_agents[i].fitness * 10;
+            for(var j = 0; j < n; j++) {
+                this.matingPool.push(this.new_agents[i]);
+            }
+        } 
+        var picked = random(this.matingPool);
+        var child = new Agent(picked.x - 200, picked.y, 10, 10)
+        return child;
+        
     }
 
 
