@@ -47,6 +47,7 @@ class Genetic {
                 this.agents[i] = this.selection();
 
             }
+            console.log(this.agents.length);
             this.new_agents = [];
         }
     }
@@ -74,7 +75,7 @@ class Genetic {
             }
         } 
         var picked = random(this.matingPool);
-        var child = new Agent(picked.x - 200, picked.y, 10, 10)
+        var child = new Agent(picked.x - 100, picked.y, 10, 10)
         return child;
         
     }
