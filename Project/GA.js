@@ -48,7 +48,6 @@ class Genetic {
 
     calculateFitness() {
         var maximum_fitness = 0;
-        var total_fitness = 0;
 
         for(var i = 0; i < this.new_agents.length; i++) {
             var agent_fitness = this.new_agents[i].getFitness();
@@ -56,6 +55,10 @@ class Genetic {
                 maximum_fitness = agent_fitness;
             } 
         }
+
+        for(var i = 0; i < this.new_agents.length; i++) {
+            this.new_agents[i].fitness /= maximum_fitness;
+        }        
     }
 
 
