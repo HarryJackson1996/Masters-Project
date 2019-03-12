@@ -8,6 +8,7 @@ class Agent {
         this.y = y;
         this.height = height;
         this.width = width;
+        this.fitness = 0;
     }
 
     checkCollision() {
@@ -92,4 +93,20 @@ class Agent {
     moveLeft() {
         return this.y -= 2;
     }   
+
+    getFitness() {
+        var getGrid = grid.getGrid();
+        var goalX;
+        var goalY;
+        for(var i = 0; i < getGrid.length; i++) {
+            if(getGrid[i].goal == true) {
+                goalX = getGrid[i].x;
+                goalY= getGrid[i].y;
+            }
+        }
+        
+        var distance = dist(this.x, this.y, goalX, goalY);
+        this.fitness = 1/distance;
+        return this.fitness;
+    }    
 }
