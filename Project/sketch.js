@@ -10,10 +10,8 @@ function setup() {
   floor(settings.getHeight()/settings.getNodeSize()));
   grid.createGrid();
   
-  GA = new Genetic(10);
+  GA = new Genetic(2);
   GA.createPopulation();
-
-
   // GUI.createGUI();
 }
 
@@ -22,7 +20,7 @@ function draw() {
   grid.drawGrid();
   grid.moveStartNode();
   grid.moveGoalNode();
-  GA.checkPopulation();
+  GA.killMember();
   GA.newPopulation();
   GA.runPopulation();
 }

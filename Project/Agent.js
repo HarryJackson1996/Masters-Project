@@ -11,12 +11,13 @@ class Agent {
         this.fitness = 0;
         if(brain instanceof NeuralNetwork) {
             this.brain = brain.copy();
+            this.brain.mutate(Genetic.mutate);
         } 
         else {
-            this.brain = new NeuralNetwork(6, 14, 1);
+            this.brain = new NeuralNetwork(7, 14, 1);
         }    
     }
-
+    
     checkCollision() {
         var grid2 = grid.getGrid();
         if(this.x > settings.getWidth() - this.width || this.x <= 0){
@@ -52,8 +53,6 @@ class Agent {
         push();
         stroke(0);
         fill(0,200,20);
-        //rotate(this.VELOCITY.heading());
-        //rectMode(CENTER);
         rect(this.x, this.y, this.width, this.height);
         pop();
     }
@@ -79,28 +78,36 @@ class Agent {
     }  
     
     makeDecision(grid) {
-        var closest = 0;
-        for(var i = 0; i < grid.length; i++) {
-            if(grid[i].blocked == true) {
-                var d = dist(this.x, this.y, grid[i].x, grid[i].y);
-                    if (closest == 0) {
-                        closest = d;
-                    } else if (closest > d) {
-                        closest = d;
+        var closestBlocked = 0;
+        for(var i = 0; i < grid.grid.length; i++) {
+            if(grid.grid[i].blocked == true) {
+                var d = dist(this.x, this.y, grid.grid[i].x, grid.grid[i].y);
+                if (closestBlocked == 0) {
+                    closestBlocked = d;
+                    } else if (closestBlocked > d) {
+                        closestBlocked = d;
                     }
             }
         }
 
+        var distToGoal = dist(this.x, this.y, grid.getGoalX(), grid.getGoalY());
+        //console.log(distToGoal);
+
         let inputs = [];
         inputs[0] = this.x;
         inputs[1] = this.y;
-        inputs[2] = (closest);
+        inputs[2] = closestBlocked;
         inputs[3] = grid.getGoalX();
         inputs[4] = grid.getGoalY();
         inputs[5] = grid.getWidth();
+        inputs[6] = distToGoal;
        
-        let output = this.brain.predict(inputs); 
+        // for(var i = 0; i < inputs.length; i++) {
+        //     console.log(i + ": " + inputs[i]);
+        // }
 
+        let output = this.brain.predict(inputs); 
+        
         if(output < 0.3333) {
             this.moveLeft();
         } 
@@ -144,5 +151,4 @@ class Agent {
     moveLeft() {
         return this.y -= 2;
     }   
-
 }
