@@ -20,7 +20,7 @@ class Genetic {
         }
 
         for(var i = 0; i < this.population_size; i++) {
-            this.agents[i] = new Agent(x, y, 10, 10);
+            this.agents[i] = new Agent(x, y, 7, 7);
         }
     }
 
@@ -32,7 +32,7 @@ class Genetic {
         } 
     }
 
-    checkPopulation() {
+    killMember() {
         for(var i = 0; i < this.agents.length; i++) {
             if(this.agents[i].CRASHED == true) {
                 this.new_agents.push(this.agents.splice(i, 1)[0]);
@@ -47,7 +47,7 @@ class Genetic {
                 this.agents[i] = this.selection();
 
             }
-            console.log(this.agents.length);
+            //console.log(this.agents.length);
             this.new_agents = [];
         }
     }
@@ -57,14 +57,17 @@ class Genetic {
 
         for(var i = 0; i < this.new_agents.length; i++) {
             var agent_fitness = this.new_agents[i].getFitness();
+            // console.log(agent_fitness);
             if(agent_fitness > maximum_fitness) {
                 maximum_fitness = agent_fitness;
             } 
         }
+        // console.log("max fit: "+ maximum_fitness);
 
         for(var i = 0; i < this.new_agents.length; i++) {
-            this.new_agents[i].fitness /= maximum_fitness;
-        }        
+            this.new_agents[i].fitness /= maximum_fitness;       
+            // console.log(i + ": " + this.new_agents[i].fitness);
+        }     
     }
 
     selection() {
@@ -81,18 +84,26 @@ class Genetic {
         }
 
         for(var i = 0; i < this.population_size; i++) {
-            var n = this.new_agents[i].fitness * 10;
+            var n = this.new_agents[i].fitness * 100;
             for(var j = 0; j < n; j++) {
                 this.matingPool.push(this.new_agents[i]);
             }
         } 
         var picked = random(this.matingPool);
         //console.log(picked.brain.weights_ho.data + ": " + picked.fitness);
-        var child = new Agent(x, y, 10, 10, picked.brain);
-        //console.log(child.brain.weights_ho.data + ": " + picked.fitness);
-        noLoop()
-        return child;
-        
+        var child = new Agent(x, y, 7, 7, picked.brain);
+        // console.log(child.brain.weights_ho.data + ": " + picked.fitness);
+        return child;  
+    }
+
+    static mutate(x) {
+        if (random(1) < 0.2) {
+            let offset = randomGaussian() * 0.1;
+            let newx = x + offset;
+            return newx;
+        } else {
+            return x;
+        }
     }
 
 

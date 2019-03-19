@@ -11,12 +11,13 @@ class Agent {
         this.fitness = 0;
         if(brain instanceof NeuralNetwork) {
             this.brain = brain.copy();
+            this.brain.mutate(Genetic.mutate);
         } 
         else {
             this.brain = new NeuralNetwork(6, 14, 1);
         }    
     }
-
+    
     checkCollision() {
         var grid2 = grid.getGrid();
         if(this.x > settings.getWidth() - this.width || this.x <= 0){
@@ -51,9 +52,7 @@ class Agent {
     show() {
         push();
         stroke(0);
-        fill(0,200,20);
-        //rotate(this.VELOCITY.heading());
-        //rectMode(CENTER);
+        fill(0,0,200);
         rect(this.x, this.y, this.width, this.height);
         pop();
     }
@@ -74,33 +73,49 @@ class Agent {
         }
         
         var distance = dist(this.x, this.y, goalX, goalY);
-        this.fitness = 1/distance;
+        var x = 0;
+
+        for(var i = 0; i < floor(distance); i+=20){
+            x++;
+        }
+
+         console.log(x + "," + distance);
+        
+        this.fitness = (1/(distance * x));
         return this.fitness;
     }  
     
     makeDecision(grid) {
-        var closest = 0;
-        for(var i = 0; i < grid.length; i++) {
-            if(grid[i].blocked == true) {
-                var d = dist(this.x, this.y, grid[i].x, grid[i].y);
-                    if (closest == 0) {
-                        closest = d;
-                    } else if (closest > d) {
-                        closest = d;
+        var closestBlocked = 0;
+        for(var i = 0; i < grid.grid.length; i++) {
+            if(grid.grid[i].blocked == true) {
+                var d = dist(this.x, this.y, grid.grid[i].x, grid.grid[i].y);
+                if (closestBlocked == 0) {
+                    closestBlocked = d;
+                    } else if (closestBlocked > d) {
+                        closestBlocked = d;
                     }
             }
         }
 
+        // var distToGoal = dist(this.x, this.y, grid.getGoalX(), grid.getGoalY());
+        // console.log(distToGoal);
+
         let inputs = [];
         inputs[0] = this.x;
         inputs[1] = this.y;
-        inputs[2] = (closest);
+        inputs[2] = closestBlocked;
         inputs[3] = grid.getGoalX();
         inputs[4] = grid.getGoalY();
         inputs[5] = grid.getWidth();
+        // inputs[6] = distToGoal;
        
+        // for(var i = 0; i < inputs.length; i++) {
+        //     console.log(i + ": " + inputs[i]);
+        // }
+        
         let output = this.brain.predict(inputs); 
-
+        
         if(output < 0.3333) {
             this.moveLeft();
         } 
@@ -129,20 +144,20 @@ class Agent {
         return this.y;
     }
 
-    moveDown() {
-        return this.y += 2;
-    }
-
     moveUp() {
-        return this.x += 2;
+        this.y -= 4;
     }
 
-    moveRight() {
-        return this.x += 2;
+    moveDown() {
+        this.y += 5;
     }
 
     moveLeft() {
-        return this.y -= 2;
-    }   
+        this.x -= 5;    
+    }
 
+    moveRight() {
+        this.x += 5;    
+
+    }  
 }

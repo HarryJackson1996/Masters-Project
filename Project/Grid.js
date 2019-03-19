@@ -15,6 +15,15 @@ class Grid {
                 if(i == 0 || i == settings_X || j == 0 || j == settings_Y) {
                     this.grid.push(new BlockedNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));  
                 }
+                else if(j == 6 && i%8 == 1) {
+                    this.grid.push(new BlockedNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));  
+                }
+                else if(j == 20 && i%2 == 1) {
+                    this.grid.push(new BlockedNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));  
+                }
+                else if(j == 13 && i%3 == 0) {
+                    this.grid.push(new BlockedNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));  
+                }
                 else if(i == floor(settings_X/2) && j == 2){
                     this.grid.push(new GoalNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize())); 
                 }
@@ -25,6 +34,12 @@ class Grid {
                     this.grid.push(new Node(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));  
                 }
             } 
+        }
+    }
+
+    getWidth() {
+        for(var i = 0; this.grid.length; i++){ 
+            return this.grid[i].getWidth();
         }
     }
 
@@ -75,24 +90,6 @@ class Grid {
             }
         }
     }
-    
-    mouseClicked() {
-        for(var i = 0; i < this.grid.length; i++){
-            if(this.grid[i].goal != true && this.grid[i].start != true){
-                this.grid[i].clicked();
-            }
-        }
-    }
-
-    getGrid() {
-        return this.grid;
-    }
-
-    getWidth() {
-        for(var i = 0; this.grid.length; i++){ 
-            return this.grid[i].getWidth();
-        }
-    }
 
     getGoalX() {
         for(var i = 0; i < this.grid.length; i++){
@@ -111,4 +108,15 @@ class Grid {
         }
     }
     
+    mouseClicked() {
+        for(var i = 0; i < this.grid.length; i++){
+            if(this.grid[i].goal != true && this.grid[i].start != true){
+                this.grid[i].clicked();
+            }
+        }
+    }
+
+    getGrid() {
+        return this.grid;
+    }
 }

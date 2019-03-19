@@ -3,17 +3,15 @@ var grid;
 var GA;
 
 function setup() {
-  settings = new Settings(400, 400, 20);
+  settings = new Settings(700, 600, 20);
   createCanvas(settings.getWidth(), settings.getHeight());
   
   grid = new Grid(floor(settings.getWidth()/settings.getNodeSize()), 
   floor(settings.getHeight()/settings.getNodeSize()));
   grid.createGrid();
   
-  GA = new Genetic(10);
+  GA = new Genetic(250);
   GA.createPopulation();
-
-
   // GUI.createGUI();
 }
 
@@ -22,7 +20,7 @@ function draw() {
   grid.drawGrid();
   grid.moveStartNode();
   grid.moveGoalNode();
-  GA.checkPopulation();
+  GA.killMember();
   GA.newPopulation();
   GA.runPopulation();
 }
