@@ -14,7 +14,7 @@ class Agent {
             this.brain.mutate(Genetic.mutate);
         } 
         else {
-            this.brain = new NeuralNetwork(7, 14, 1);
+            this.brain = new NeuralNetwork(6, 14, 1);
         }    
     }
     
@@ -52,7 +52,7 @@ class Agent {
     show() {
         push();
         stroke(0);
-        fill(0,200,20);
+        fill(0,0,200);
         rect(this.x, this.y, this.width, this.height);
         pop();
     }
@@ -73,7 +73,15 @@ class Agent {
         }
         
         var distance = dist(this.x, this.y, goalX, goalY);
-        this.fitness = 1/distance;
+        var x = 0;
+
+        for(var i = 0; i < floor(distance); i+=20){
+            x++;
+        }
+
+         console.log(x + "," + distance);
+        
+        this.fitness = (1/(distance * x));
         return this.fitness;
     }  
     
@@ -90,8 +98,8 @@ class Agent {
             }
         }
 
-        var distToGoal = dist(this.x, this.y, grid.getGoalX(), grid.getGoalY());
-        //console.log(distToGoal);
+        // var distToGoal = dist(this.x, this.y, grid.getGoalX(), grid.getGoalY());
+        // console.log(distToGoal);
 
         let inputs = [];
         inputs[0] = this.x;
@@ -100,12 +108,12 @@ class Agent {
         inputs[3] = grid.getGoalX();
         inputs[4] = grid.getGoalY();
         inputs[5] = grid.getWidth();
-        inputs[6] = distToGoal;
+        // inputs[6] = distToGoal;
        
         // for(var i = 0; i < inputs.length; i++) {
         //     console.log(i + ": " + inputs[i]);
         // }
-
+        
         let output = this.brain.predict(inputs); 
         
         if(output < 0.3333) {
@@ -136,19 +144,20 @@ class Agent {
         return this.y;
     }
 
-    moveDown() {
-        return this.y += 2;
-    }
-
     moveUp() {
-        return this.x += 2;
+        this.y -= 4;
     }
 
-    moveRight() {
-        return this.x += 2;
+    moveDown() {
+        this.y += 5;
     }
 
     moveLeft() {
-        return this.y -= 2;
-    }   
+        this.x -= 5;    
+    }
+
+    moveRight() {
+        this.x += 5;    
+
+    }  
 }
