@@ -4,6 +4,7 @@
   "description": "",
   "main": "Agent.js",
   "scripts": {
+    "generate-docs": "node_modules/.bin/jsdoc --configure jsdoc.conf.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Harry Jackson",
