@@ -25,8 +25,8 @@ class Node {
     }
 
     /**
-     * @method
-     * @description - Method for drawing the Node graphics to the canvas.
+     * @method 
+     * @description - Method for drawing the Node to the canvas.
      */
     drawNode() {
         stroke(0);
@@ -70,8 +70,7 @@ class Node {
     
     /**
      * @method 
-     * @description - Sets the nodes state to goal.
-     * @returns {boolean}
+     * @returns {boolean} - Sets the nodes state to goal.
      */
     setGoal() {
         this.col = color(0, 200, 0);
@@ -81,8 +80,7 @@ class Node {
 
     /**
      * @method 
-     * @description - Sets the nodes state to blocked.
-     * @returns {boolean}
+     * @returns {boolean} - Sets the nodes state to blocked.
      */
     setBlocked() {
         this.col = color(200, 0, 0);
@@ -91,8 +89,7 @@ class Node {
 
     /**
      * @method 
-     * @description - Sets the nodes state to start.
-     * @returns {boolean}
+     * @returns {boolean} - Sets the nodes state to start.
      */
     setStart() {
         this.col = color(0, 220, 255);

@@ -1,11 +1,23 @@
 class Grid {
 
+    /**
+     * @constructor
+     * 
+     * @param {number} rows - Number of rows in the grid object.
+     * @param {number} cols - Number of columns in the grid object
+     * @property {array} grid - Array for creating the grid object.
+     */
     constructor(rows, cols) {
         this.rows = rows;
         this.cols = cols;
         this.grid = [];
     }
 
+    /**
+     * @method 
+     * @see Node
+     * @returns - The grid object (Array of Node objects).
+     */
     createGrid() {
         var settings_X = (((settings.getWidth()-1)/settings.getNodeSize())-1);
         var settings_Y = (((settings.getHeight()-1)/settings.getNodeSize())-1);
@@ -35,20 +47,37 @@ class Grid {
                 }
             } 
         }
+        return this.grid;
     }
 
-    getWidth() {
-        for(var i = 0; this.grid.length; i++){ 
-            return this.grid[i].getWidth();
-        }
-    }
-
+    /**
+     * @method
+     * @description - Handles Drawing the grid object to the canvas.
+     * @see Node#drawNode
+     */
     drawGrid() {
         for(var i = 0; i < this.grid.length; i++){
             this.grid[i].drawNode();
         }
     }
 
+    /**
+     * @method
+     * @returns - The size of a single node from the grid object 
+     * @see Node#getWidth
+     */
+    getWidth() {
+        for(var i = 0; this.grid.length; i++){ 
+            return this.grid[i].getWidth();
+        }
+    }
+
+    /**
+     * @method
+     * @description - Permits the movement of the Goal node.
+     * @see Node#setNormal
+     * @see Node#setStart
+     */
     moveStartNode() {
         for(var i = 0; i < this.grid.length; i++){
             if(mouseX > this.grid[i].x && mouseX < this.grid[i].x + this.grid[i].width
@@ -69,7 +98,13 @@ class Grid {
             }
         }
     }
-
+    
+    /**
+     * @method
+     * @description - Permits the movement of the Goal node.
+     * @see Node#setNormal
+     * @see Node#setGoal
+     */
     moveGoalNode() {
         for(var i = 0; i < this.grid.length; i++){
             if(mouseX > this.grid[i].x && mouseX < this.grid[i].x + this.grid[i].width
@@ -91,6 +126,10 @@ class Grid {
         }
     }
 
+    /**
+     * @method
+     * @returns - The x position of the goal node from the grid object.
+     */
     getGoalX() {
         for(var i = 0; i < this.grid.length; i++){
             if(this.grid[i].goal == true) {
@@ -100,6 +139,10 @@ class Grid {
         }
     }
 
+    /**
+     * @method 
+     * @returns - The y position of the goal node from the grid object.
+     */
     getGoalY() {
         for(var i = 0; i < this.grid.length; i++){
             if(this.grid[i].goal == true) {
@@ -108,6 +151,10 @@ class Grid {
         }
     }
     
+    /**
+     * @method 
+     * @
+     */
     mouseClicked() {
         for(var i = 0; i < this.grid.length; i++){
             if(this.grid[i].goal != true && this.grid[i].start != true){

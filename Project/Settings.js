@@ -15,7 +15,7 @@ class Settings {
 
     /**
      * @method
-     * @returns {Number} The Canvas width.
+     * @returns {Number} - The Canvas width.
      */
     getWidth() {
         return this.SCREEN_WIDTH + 1;
@@ -23,7 +23,7 @@ class Settings {
 
     /**
      * @method
-     * @returns {Number} The Canvas height.
+     * @returns {Number} - The Canvas height.
      */
     getHeight() {
         return this.SCREEN_HEIGHT + 1;
@@ -31,7 +31,7 @@ class Settings {
 
     /**
      * @method
-     * @returns {Number} The Node width and height.
+     * @returns {Number} - The Node width and height.
      * @see Node
      */
     getNodeSize() {
