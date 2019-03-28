@@ -17,6 +17,7 @@ class Grid {
     }
 
     /**
+     * @description - Creates a grid object.
      * @see Node
      * @returns - The grid object (Array of Node objects).
      * 
@@ -67,7 +68,7 @@ class Grid {
     }
 
     /**
-     * @returns - The size of a single node from the grid object 
+     * @returns - The size of a single node from the grid object.
      * @see Node#getWidth
      */
     getWidth() {
@@ -152,7 +153,7 @@ class Grid {
     }
     
     /**
-     * @description - Iterates over the grid object (array) and calls the method clicked.
+     * @description - Iterates over the grid object (array) and calls the Node method 'clicked'.
      * @see Node#clicked
      */
     mouseClicked() {
