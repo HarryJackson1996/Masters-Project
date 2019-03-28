@@ -1,0 +1,8 @@
+#. gitignore
+
+Project/dependencies/node_modules/
+Project/docs/fonts
+Project/docs/scripts
+Project/docs/styles
+
+*.html

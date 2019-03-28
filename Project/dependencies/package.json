@@ -1,0 +1,21 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Agent.js",
+  "scripts": {
+    "generate-docs": "node_modules/.bin/jsdoc --configure jsdoc.conf.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Harry Jackson",
+  "license": "ISC",
+  "dependencies": {
+    "jsdoc": "3.5.5",
+    "minami": "1.2.3"
+  },
+  "devDependencies": {
+    "jsdoc": "3.5.5",
+    "minami": "1.2.3"
+  }
+}
+
