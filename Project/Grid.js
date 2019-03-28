@@ -6,6 +6,9 @@ class Grid {
      * @param {number} rows - Number of rows in the grid object.
      * @param {number} cols - Number of columns in the grid object
      * @property {array} grid - Array for creating the grid object.
+     * 
+     * @example
+     * var grid = new Grid(10, 10);
      */
     constructor(rows, cols) {
         this.rows = rows;
@@ -14,9 +17,12 @@ class Grid {
     }
 
     /**
-     * @method 
      * @see Node
      * @returns - The grid object (Array of Node objects).
+     * 
+     * @example 
+     * var grid = [];
+     * grid.push(new Node(0, 0, 10, 10));
      */
     createGrid() {
         var settings_X = (((settings.getWidth()-1)/settings.getNodeSize())-1);
@@ -51,7 +57,6 @@ class Grid {
     }
 
     /**
-     * @method
      * @description - Handles Drawing the grid object to the canvas.
      * @see Node#drawNode
      */
@@ -62,7 +67,6 @@ class Grid {
     }
 
     /**
-     * @method
      * @returns - The size of a single node from the grid object 
      * @see Node#getWidth
      */
@@ -73,7 +77,6 @@ class Grid {
     }
 
     /**
-     * @method
      * @description - Permits the movement of the Goal node.
      * @see Node#setNormal
      * @see Node#setStart
@@ -100,7 +103,6 @@ class Grid {
     }
     
     /**
-     * @method
      * @description - Permits the movement of the Goal node.
      * @see Node#setNormal
      * @see Node#setGoal
@@ -127,7 +129,6 @@ class Grid {
     }
 
     /**
-     * @method
      * @returns - The x position of the goal node from the grid object.
      */
     getGoalX() {
@@ -140,7 +141,6 @@ class Grid {
     }
 
     /**
-     * @method 
      * @returns - The y position of the goal node from the grid object.
      */
     getGoalY() {
@@ -152,8 +152,8 @@ class Grid {
     }
     
     /**
-     * @method 
-     * @
+     * @description - Iterates over the grid object (array) and calls the method clicked.
+     * @see Node#clicked
      */
     mouseClicked() {
         for(var i = 0; i < this.grid.length; i++){
@@ -163,6 +163,9 @@ class Grid {
         }
     }
 
+    /**
+     * @returns {array} - Returns the grid object.
+     */
     getGrid() {
         return this.grid;
     }

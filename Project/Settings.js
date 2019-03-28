@@ -6,6 +6,9 @@ class Settings {
      * @param {Number} width - The canvas width in pixels.
      * @param {Number} height - The canvas height in pixels.
      * @param {Number} size - The size of a singular node (width and height).
+     * 
+     * @example 
+     * var settings = new Settings(400, 400, 20);
      */
     constructor(width, height, size) {
         this.SCREEN_HEIGHT = height;
@@ -14,7 +17,6 @@ class Settings {
     }
 
     /**
-     * @method
      * @returns {Number} - The Canvas width.
      */
     getWidth() {
@@ -22,7 +24,6 @@ class Settings {
     }
 
     /**
-     * @method
      * @returns {Number} - The Canvas height.
      */
     getHeight() {
@@ -30,7 +31,6 @@ class Settings {
     }
 
     /**
-     * @method
      * @returns {Number} - The Node width and height.
      * @see Node
      */

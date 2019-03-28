@@ -1,5 +1,16 @@
 class Genetic {
 
+    /**
+     * 
+     * @param {number} population_size - The size of the population.
+     * 
+     * @property {array} agents - Array to store the new population of agents.
+     * @property {array} new_agents - Array to store the agents once killed.
+     * @property {array} matingPool - Array for storing the agents used for selection.
+     * 
+     * @example 
+     * var GA = new Genetic(10);
+     */
     constructor(population_size) {
         this.population_size = population_size;
         this.agents = [];
@@ -7,6 +18,10 @@ class Genetic {
         this.matingPool = [];
     }
 
+    /**
+     * @description - Creates the first population of agents initialised with random neural networks.
+     * @see Agent
+     */
     createPopulation() {
         var myGrid = grid.getGrid();
         var x;
@@ -24,6 +39,13 @@ class Genetic {
         }
     }
 
+    /**
+     * @description - The main method for running the population.
+     * 
+     * @see Agent#makeDecision
+     * @see Agent#checkCollision
+     * @see Agent#show
+     */
     runPopulation() {
         for(var i = 0; i < this.agents.length; i++) {
             this.agents[i].makeDecision(grid);
@@ -32,6 +54,9 @@ class Genetic {
         } 
     }
 
+    /**
+     * @description - Method for deleting crashed agents from the canvas.
+     */
     killMember() {
         for(var i = 0; i < this.agents.length; i++) {
             if(this.agents[i].CRASHED == true) {
@@ -40,6 +65,9 @@ class Genetic {
         }
     }
 
+    /**
+     * @description - Creates a new population based on the fitness of the previous popualtion.
+     */
     newPopulation() {
         if(this.agents.length == 0){
             this.calculateFitness();
@@ -52,6 +80,10 @@ class Genetic {
         }
     }
 
+    /**
+     * @description - Calculates the normalised fitness for each agent in the population.
+     * @see Agent#getFitness
+     */
     calculateFitness() {
         var maximum_fitness = 0;
 
@@ -70,6 +102,10 @@ class Genetic {
         }     
     }
 
+    /**
+     * @description - Creates a new agent based on the best fitness from the last population.
+     * @return {object} - The new agent.
+     */
     selection() {
     
         var myGrid = grid.getGrid();
@@ -96,6 +132,11 @@ class Genetic {
         return child;  
     }
 
+    /**
+     * @static
+     * @param {number} x - Expects a function in its parameter.
+     * @returns {newx} - The new value which has been mutated.
+     */
     static mutate(x) {
         if (random(1) < 0.2) {
             let offset = randomGaussian() * 0.1;
