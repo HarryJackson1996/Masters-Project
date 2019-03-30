@@ -23,7 +23,6 @@ class Agent {
         this.fitness = 0;
         if(brain instanceof NeuralNetwork) {
             this.brain = brain.copy();
-            this.brain.mutate(Genetic.mutate);
         } 
         else {
             this.brain = new NeuralNetwork(6, 14, 1);
@@ -88,7 +87,7 @@ class Agent {
             x++;
         }
 
-         console.log(x + "," + distance);
+        // console.log(x + "," + distance);
         
         this.fitness = (1/(distance * x));
         return this.fitness;

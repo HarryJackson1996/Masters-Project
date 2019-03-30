@@ -1,3 +1,6 @@
+var startTime = 0;
+var time = 0;
+
 class Genetic {
 
     /**
@@ -11,31 +14,25 @@ class Genetic {
      * @example 
      * var GA = new Genetic(10);
      */
-    constructor(population_size) {
+    constructor(population_size, width, height) {
         this.population_size = population_size;
+        this.width = width;
+        this.height = height;
+        this.mutation_rate = 0.1;
+        this.gen = 0;
         this.agents = [];
         this.new_agents = [];
         this.matingPool = [];
-    }
+        this.timer = 0;
+        }
 
     /**
      * @description - Creates the first population of agents initialised with random neural networks.
      * @see Agent
      */
-    createPopulation() {
-        var myGrid = grid.getGrid();
-        var x;
-        var y;
-
-        for(var i = 0; i < myGrid.length; i++) {
-            if(myGrid[i].start == true) {
-                x = myGrid[i].getX();
-                y = myGrid[i].getY();
-            }
-        }
-
+    createPopulation() {      
         for(var i = 0; i < this.population_size; i++) {
-            this.agents[i] = new Agent(x, y, 7, 7);
+            this.agents[i] = new Agent(grid.getStartX(), grid.getStartY(), this.width, this.height);
         }
     }
 
@@ -50,8 +47,13 @@ class Genetic {
         for(var i = 0; i < this.agents.length; i++) {
             this.agents[i].makeDecision(grid);
             this.agents[i].checkCollision();
-            this.agents[i].show();
         } 
+    }
+
+    drawPopulation() {
+        for(var i = 0; i < this.agents.length; i++) {
+            this.agents[i].show();
+        }
     }
 
     /**
@@ -73,9 +75,9 @@ class Genetic {
             this.calculateFitness();
             for(var i = 0; i < this.population_size; i++){
                 this.agents[i] = this.selection();
-
             }
             //console.log(this.agents.length);
+            this.gen += 1;
             this.new_agents = [];
         }
     }
@@ -98,7 +100,7 @@ class Genetic {
 
         for(var i = 0; i < this.new_agents.length; i++) {
             this.new_agents[i].fitness /= maximum_fitness;       
-            // console.log(i + ": " + this.new_agents[i].fitness);
+            //console.log(i + ": " + this.new_agents[i].fitness);
         }     
     }
 
@@ -107,45 +109,29 @@ class Genetic {
      * @return {object} - The new agent.
      */
     selection() {
-    
-        var myGrid = grid.getGrid();
-        var x;
-        var y;
-
-        for(var i = 0; i < myGrid.length; i++) {
-            if(myGrid[i].start == true) {
-                x = myGrid[i].getX();
-                y = myGrid[i].getY();
-            }
-        }
-
         for(var i = 0; i < this.population_size; i++) {
-            var n = this.new_agents[i].fitness * 100;
+            var n = this.new_agents[i].fitness * 1000;
+            //console.log(n);
             for(var j = 0; j < n; j++) {
                 this.matingPool.push(this.new_agents[i]);
             }
         } 
         var picked = random(this.matingPool);
-        //console.log(picked.brain.weights_ho.data + ": " + picked.fitness);
-        var child = new Agent(x, y, 7, 7, picked.brain);
-        // console.log(child.brain.weights_ho.data + ": " + picked.fitness);
+        //console.log("adult" + picked.brain.weights_ho.data + ": " + picked.fitness);
+        var child = new Agent(grid.getStartX(), grid.getStartY(), this.width, this.height, picked.brain);
+        child.brain.mutate(this.mutation_rate);
+        //console.log("child" + child.brain.weights_ho.data + ": " + picked.fitness);
         return child;  
     }
 
-    /**
-     * @static
-     * @param {number} x - Expects a function in its parameter.
-     * @returns {newx} - The new value which has been mutated.
-     */
-    static mutate(x) {
-        if (random(1) < 0.2) {
-            let offset = randomGaussian() * 0.1;
-            let newx = x + offset;
-            return newx;
-        } else {
-            return x;
-        }
+    getMutation() {
+        return this.mutation_rate;
     }
 
-
+    resetGen() {
+        this.gen = 0;
+    }
+    resetTimer() {
+        this.timer = 0;
+    }
 }
