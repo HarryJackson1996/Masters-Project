@@ -151,6 +151,30 @@ class Grid {
             }
         }
     }
+
+     /**
+     * @returns - The x position of the goal node from the grid object.
+     */
+    getStartX() {
+        for(var i = 0; i < this.grid.length; i++){
+            if(this.grid[i].start == true) {
+                //console.log(this.grid[i].x);
+                return this.grid[i].x;
+            }
+        }
+    }
+
+    /**
+     * @returns - The y position of the goal node from the grid object.
+     */
+    getStartY() {
+        for(var i = 0; i < this.grid.length; i++){
+            if(this.grid[i].start == true) {
+                return this.grid[i].y;
+            }
+        }
+    }
+    
     
     /**
      * @description - Iterates over the grid object (array) and calls the Node method 'clicked'.
