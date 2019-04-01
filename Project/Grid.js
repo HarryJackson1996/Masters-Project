@@ -78,6 +78,16 @@ class Grid {
     }
 
     /**
+     * @returns - The size of a single node from the grid object.
+     * @see Node#getWidth
+     */
+    getHeight() {
+        for(var i = 0; this.grid.length; i++){ 
+            return this.grid[i].getHeight();
+        }
+    }
+
+    /**
      * @description - Permits the movement of the Goal node.
      * @see Node#setNormal
      * @see Node#setStart
