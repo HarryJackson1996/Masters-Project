@@ -1,6 +1,3 @@
-var startTime = 0;
-var time = 0;
-
 class Genetic {
 
     /**
@@ -19,12 +16,40 @@ class Genetic {
         this.width = width;
         this.height = height;
         this.mutation_rate = 0.1;
-        this.gen = 0;
+        this.gen = 1;
         this.agents = [];
         this.new_agents = [];
         this.matingPool = [];
-        this.timer = 0;
+        this.data = [];
+        this.score = 0.01;
+    }
+
+    checkGoalCollision() {
+        var grid2 = grid.getGrid();
+        var x;
+        var y;
+        for(var i = 0; i < grid2.length; i++){
+            if(grid2[i].goal == true){
+                x = grid2[i].x;
+                y = grid2[i].y;
+            }
+       }
+       for(var i = 0; i < this.agents.length; i++) {
+        var hit = collideRectRect(x, y, grid2[i].getWidth(), grid2[i].getHeight(), 
+        this.agents[i].x, this.agents[i].y, this.agents[i].width, this.agents[i].height);
+        if(hit){ 
+            this.data.push([this.getPopulationSize(), this.getMutation(), this.getGenerations(), this.getScore()]);
+            this.population_size -= 20;
+            this.resetGen();
+            this.resetScore();
+            this.createPopulation();
         }
+       }  
+    } 
+
+    getData() {
+        return this.data;
+    }
 
     /**
      * @description - Creates the first population of agents initialised with random neural networks.
@@ -47,7 +72,9 @@ class Genetic {
         for(var i = 0; i < this.agents.length; i++) {
             this.agents[i].makeDecision(grid);
             this.agents[i].checkCollision();
+            this.checkGoalCollision();
         } 
+        this.score += 0.01;
     }
 
     drawPopulation() {
@@ -123,15 +150,28 @@ class Genetic {
         //console.log("child" + child.brain.weights_ho.data + ": " + picked.fitness);
         return child;  
     }
-
+    
     getMutation() {
         return this.mutation_rate;
     }
 
     resetGen() {
-        this.gen = 0;
+        this.gen = 1;
     }
-    resetTimer() {
-        this.timer = 0;
+
+    resetScore() {
+        this.score = 0.01;
+    }
+    
+    getPopulationSize() {
+        return this.population_size;
+    }
+
+    getGenerations() {
+        return this.gen;
+    }
+
+    getScore() {
+        return this.score;
     }
 }

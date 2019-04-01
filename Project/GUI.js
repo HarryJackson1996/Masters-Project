@@ -6,13 +6,14 @@ class GUI {
 
     static createGUI() {
         this.gui = new dat.GUI();
+
         GUI.MapFolder();
         GUI.AgentSettings();
         GUI.GeneticSettings();
-
+        
         this.start = { Start:function(){
             if(pause!=true){
-            GA.createPopulation();
+                GA.createPopulation();
             }
             pause = false;
             start = true;
@@ -28,11 +29,11 @@ class GUI {
 
         this.stop = { Stop:function(){
             stop = true;
-            GA.createPopulation();
             start = false;
+            GA.createPopulation();
             console.clear();
             GA.resetGen();
-            GA.resetTimer();
+            GA.resetScore();
         }};
 
         this.gui.add(this.start, 'Start');
@@ -40,6 +41,21 @@ class GUI {
         this.gui.add(this.stop, 'Stop');
 
         GUI.outputPanel();
+
+        this.CSV = {CSV:function() {
+            var data = GA.getData();
+            var csv = 'Population size, Mutation rate, Generations, Time taken\n';
+            data.forEach(function(row) {
+                    csv += row.join(',');
+                    csv += "\n";
+            });
+            var hiddenElement = document.createElement('a');
+            hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+            hiddenElement.target = '_blank';
+            hiddenElement.download = 'GA-Data.csv';
+            hiddenElement.click();
+        }};
+        this.gui.add(this.CSV, 'CSV').name("Download CSV");
     }
 
     static MapFolder() {
@@ -72,9 +88,9 @@ class GUI {
     static outputPanel() {
         var output_folder = this.gui.addFolder('OUTPUTS')
         output_folder.add(GA, 'gen').listen().name("Generation Number")
-        output_folder.add(GA, 'population_size');
-        output_folder.add(GA, 'mutation_rate');    
-        output_folder.add(GA, 'timer').listen();    
+        output_folder.add(GA, 'population_size').listen();
+        output_folder.add(GA, 'mutation_rate').listen();    
+        output_folder.add(GA, 'score').listen();
     }
 
 }

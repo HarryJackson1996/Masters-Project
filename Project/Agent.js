@@ -23,10 +23,12 @@ class Agent {
         this.fitness = 0;
         if(brain instanceof NeuralNetwork) {
             this.brain = brain.copy();
+            //console.log("copy");
         } 
         else {
+            //console.log("new")
             this.brain = new NeuralNetwork(6, 14, 1);
-        }    
+        }   
     }
     
     /**
@@ -196,5 +198,5 @@ class Agent {
      */
     moveRight() {
         return this.x += 5;   
-    }  
+    } 
 }
