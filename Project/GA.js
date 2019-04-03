@@ -55,7 +55,7 @@ class Genetic {
      * @description - Creates the first population of agents initialised with random neural networks.
      * @see Agent
      */
-    createPopulation() {      
+    createPopulation() {    
         for(var i = 0; i < this.population_size; i++) {
             this.agents[i] = new Agent(grid.getStartX(), grid.getStartY(), this.width, this.height);
         }
@@ -104,6 +104,7 @@ class Genetic {
                 this.agents[i] = this.selection();
             }
             //console.log(this.agents.length);
+            this.score = 0;
             this.gen += 1;
             this.new_agents = [];
         }

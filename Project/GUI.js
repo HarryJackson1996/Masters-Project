@@ -5,12 +5,12 @@ class GUI {
     }
 
     static createGUI() {
-        this.gui = new dat.GUI();
-
+        this.gui = new dat.GUI();       
         GUI.MapFolder();
         GUI.AgentSettings();
         GUI.GeneticSettings();
-        
+        GUI.outputPanel();
+
         this.start = { Start:function(){
             if(pause!=true){
                 GA.createPopulation();
@@ -39,8 +39,6 @@ class GUI {
         this.gui.add(this.start, 'Start');
         this.gui.add(this.pause, 'Pause');
         this.gui.add(this.stop, 'Stop');
-
-        GUI.outputPanel();
 
         this.CSV = {CSV:function() {
             var data = GA.getData();
@@ -91,6 +89,7 @@ class GUI {
         output_folder.add(GA, 'population_size').listen();
         output_folder.add(GA, 'mutation_rate').listen();    
         output_folder.add(GA, 'score').listen();
+        output_folder.open();
     }
 
 }
