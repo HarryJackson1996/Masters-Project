@@ -12,28 +12,34 @@ class GUI {
         GUI.outputPanel();
 
         this.start = { Start:function(){
-            if(pause!=true){
-                GA.createPopulation();
+            if(pause==false) {
+            population.createPopulation(grid);
             }
+
             pause = false;
             start = true;
+            stop = false;
         }};
 
         this.pause = { Pause:function(){
-            if(pause == false) {
+            if(start == true) {
                 pause = true;
-            } else {
-            pause = false;
+                start = false;
+            }
+            else if(start == false && pause == true) {
+                pause = false;
+                start = true;
             }
         }};
 
         this.stop = { Stop:function(){
             stop = true;
+            pause = false;
             start = false;
-            GA.createPopulation();
+            population.clearPopulation();
             console.clear();
             GA.resetGen();
-            GA.resetScore();
+            population.resetScore();
         }};
 
         this.gui.add(this.start, 'Start');
@@ -41,7 +47,7 @@ class GUI {
         this.gui.add(this.stop, 'Stop');
 
         this.CSV = {CSV:function() {
-            var data = GA.getData();
+            var data = population.getData();
             var csv = 'Population size, Mutation rate, Generations, Time taken\n';
             data.forEach(function(row) {
                     csv += row.join(',');
@@ -50,7 +56,7 @@ class GUI {
             var hiddenElement = document.createElement('a');
             hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
             hiddenElement.target = '_blank';
-            hiddenElement.download = 'GA-Data.csv';
+            hiddenElement.download = '4-3-1.csv';
             hiddenElement.click();
         }};
         this.gui.add(this.CSV, 'CSV').name("Download CSV");
@@ -73,22 +79,22 @@ class GUI {
 
     static AgentSettings() {
         var agent_folder = this.gui.addFolder('Agent Settings');
-        agent_folder.add(GA, 'width').name("Agents Width");
-        agent_folder.add(GA, 'height').name("Agents Height");   
+        agent_folder.add(population, 'width').name("Agents Width");
+        agent_folder.add(population, 'height').name("Agents Height");   
     }
 
     static GeneticSettings() {
         var genetic_folder = this.gui.addFolder('Genetic Settings');
-        genetic_folder.add(GA, 'population_size');
+        genetic_folder.add(population, 'population_size');
         genetic_folder.add(GA, 'mutation_rate');        
     }
 
     static outputPanel() {
         var output_folder = this.gui.addFolder('OUTPUTS')
         output_folder.add(GA, 'gen').listen().name("Generation Number")
-        output_folder.add(GA, 'population_size').listen();
+        output_folder.add(population, 'population_size').listen();
         output_folder.add(GA, 'mutation_rate').listen();    
-        output_folder.add(GA, 'score').listen();
+        output_folder.add(population, 'score').listen();
         output_folder.open();
     }
 

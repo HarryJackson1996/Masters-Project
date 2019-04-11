@@ -3,27 +3,30 @@ var GA;
 var start = false;
 var stop = false;
 var pause = false;
+var population;
 
 function setup() {
-  settings = new Settings(400, 400, 20);
+  settings = new Settings(420, 400, 20);
   createCanvas(settings.getWidth(), settings.getHeight());
   grid = new Grid(floor(settings.getWidth()/settings.getNodeSize()), 
   floor(settings.getHeight()/settings.getNodeSize()));
   grid.createGrid();
-  GA = new Genetic(200, 7, 7);
+  population = new Population(2, 7, 7);
+  console.log(population.getPopSize());
+  GA = new Genetic();
   GUI.createGUI();
 }
 
 function draw() {
   background(30); 
   grid.drawGrid();
-  if(start == true && pause == false) {
-  GA.killMember();
-  GA.newPopulation();
-  GA.runPopulation();
-  GA.drawPopulation();
+  if(start == true && pause == false && stop == false) {
+  population.killMember();
+  GA.evolve();
+  population.runPopulation();
+  population.drawPopulation();
   } else if(pause == true) {
-    GA.drawPopulation();
+    population.drawPopulation();
   }
   grid.moveStartNode();
   grid.moveGoalNode();
