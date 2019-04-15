@@ -5,10 +5,12 @@ class GUI {
     }
 
     static createGUI() {
-        this.gui = new dat.GUI();       
+        this.gui = new dat.GUI({ autoplace: false });    
+        this.gui.domElement.id = 'gui';   
         GUI.MapFolder();
         GUI.AgentSettings();
         GUI.GeneticSettings();
+        GUI.NetworkSettings();
         GUI.outputPanel();
 
         this.start = { Start:function(){
@@ -48,7 +50,8 @@ class GUI {
 
         this.CSV = {CSV:function() {
             var data = population.getData();
-            var csv = 'Population size, Mutation rate, Generations, Time taken\n';
+            console.log(data);
+            var csv = 'Population size, Mutation rate, Generations, Time taken, Hidden Neurons\n';
             data.forEach(function(row) {
                     csv += row.join(',');
                     csv += "\n";
@@ -69,32 +72,55 @@ class GUI {
         map_folder.add(settings, 'NODE_SIZE', 0, 100, 10).name("Node Size");
 
         this.obj = { Update:function(){
-            createCanvas(settings.getWidth(), settings.getHeight());
-            grid = new Grid(floor(settings.getWidth()/settings.getNodeSize()), 
-            floor(settings.getHeight()/settings.getNodeSize()));
-            grid.createGrid(); 
+            var checkX = (settings.getWidth()-1)/settings.getNodeSize();
+            var checkY = (settings.getHeight()-1)/settings.getNodeSize();
+            try {
+                if(checkX%1!=0 || checkY%1!=0) throw error;
+                else {
+                    createCanvas(settings.getWidth(), settings.getHeight());
+                    grid = new Grid(floor(settings.getWidth()/settings.getNodeSize()), 
+                    floor(settings.getHeight()/settings.getNodeSize()));
+                    grid.createGrid(); 
+                    document.getElementById("gui").style.position = "absolute";
+                    document.getElementById("gui").style.left = settings.getWidth() + 20;
+                    document.getElementById("gui").style.top = 7; 
+                }
+                
+            }
+            catch(error) {
+                window.alert("nope");            
+            }          
             }};
             map_folder.add(this.obj, 'Update');
     }
 
     static AgentSettings() {
         var agent_folder = this.gui.addFolder('Agent Settings');
-        agent_folder.add(population, 'width').name("Agents Width");
-        agent_folder.add(population, 'height').name("Agents Height");   
+        agent_folder.add(agentSettings, 'WIDTH').name("Agents Width");
+        agent_folder.add(agentSettings, 'HEIGHT').name("Agents Height");   
+        agent_folder.add(agentSettings, 'MOVE_UP', 0, 10, 0.5).name("Up speed");   
+        agent_folder.add(agentSettings, 'MOVE_LEFT', 0, 10, 0.5).name("Left speed");   
+        agent_folder.add(agentSettings, 'MOVE_RIGHT', 0, 10, 0.5).name("Right speed");   
+        agent_folder.addColor(agentSettings, 'COLOUR').name("Colour");   
     }
 
     static GeneticSettings() {
         var genetic_folder = this.gui.addFolder('Genetic Settings');
-        genetic_folder.add(population, 'population_size');
-        genetic_folder.add(GA, 'mutation_rate');        
+        genetic_folder.add(population, 'population_size').name("Population size");
+        genetic_folder.add(GA, 'mutation_rate').name("Mutation rate");        
+    }
+
+    static NetworkSettings() {
+        var network_folder = this.gui.addFolder('Network Settings');
+        network_folder.add(agentSettings, 'HIDDEN_NEURONS').name('Hidden-layer neurons')
     }
 
     static outputPanel() {
         var output_folder = this.gui.addFolder('OUTPUTS')
         output_folder.add(GA, 'gen').listen().name("Generation Number")
-        output_folder.add(population, 'population_size').listen();
-        output_folder.add(GA, 'mutation_rate').listen();    
-        output_folder.add(population, 'score').listen();
+        output_folder.add(population, 'population_size').name("Population size").listen();
+        output_folder.add(GA, 'mutation_rate').name("Mutation rate").listen();    
+        output_folder.add(population, 'score').name("Score").listen();
         output_folder.open();
     }
 

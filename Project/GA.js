@@ -15,7 +15,6 @@ class Genetic {
         this.mutation_rate = 0.1;
         this.gen = 1;
         this.matingPool = new MatingPool();
-        this.data = [];
         this.counter = 0;
     }
 
@@ -61,8 +60,8 @@ class Genetic {
     selection() {
         var picked = random(this.matingPool.mating_pool);
         // console.log(picked);
-        // console.log("adult" + picked.brain.weights_ho.data + ": " + picked.fitness);
-        var child = new Agent(grid.getStartX(), grid.getStartY(), population.getWidth(), population.getHeight(), picked.brain);
+        // console.log(picked.brain);
+        var child = new Agent(grid.getStartX(), grid.getStartY(), agentSettings.getWidth(), agentSettings.getHeight(), picked.brain);
         child.brain.mutate(this.mutation_rate);
         // console.log("child" + child.brain.weights_ho.data + ": " + picked.fitness);
         return child;  

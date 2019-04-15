@@ -1,0 +1,75 @@
+#gui {
+    width: 100px;
+}
+
+.dg .cr.boolean {
+    border-left: 5px solid #806787
+}
+
+.dg .cr.color {
+    border-left: 5px solid;
+}
+
+.dg .cr.function {
+    border-left: 10px solid  #dd3939
+}
+
+.cr.function:nth-child(5) {
+    border-left: 10px solid  #119422;
+}
+
+.cr.function:hover:nth-child(5) {
+    background: #119422;
+    transition: 0.5s;
+}
+
+.cr.function:nth-child(6) {
+    border-left: 10px solid  #119422;
+}
+
+.cr.function:hover:nth-child(6){
+    background: #119422;
+    transition: 0.5s;
+}
+
+.cr.function:nth-child(7) {
+    border-left: 10px solid  #d1c520;
+}
+
+
+.cr.function:hover:nth-child(7){
+    background: hsl(56, 73%, 47%);
+    transition: 0.5s;
+}
+
+.cr.function:nth-child(8) {
+    border-left: 10px solid  #dd3939;
+}
+ 
+.cr.function:hover:nth-child(8){
+    background: #dd3939;
+    transition: 0.5s;
+}
+
+.cr.function:nth-child(9) {
+    border-left: 10px solid  #af16dd;
+}
+ 
+.cr.function:hover:nth-child(9){
+    background: #af16dd;
+    transition: 0.5s;
+}
+
+.dg .cr.function .property-name {
+    color: rgb(255, 255, 255);
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.dg .cr.number {
+    border-left: 5px solid #2FA1D6
+}
+
+.dg li:not(.folder) {
+    border-bottom: 1px solid #3d3d3d;
+}

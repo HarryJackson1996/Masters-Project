@@ -1,11 +1,9 @@
 class Population {
 
-    constructor(population_size, width, height) {
+    constructor(population_size) {
         this.population_size = population_size;
         this.agents = [];
         this.new_agents = [];
-        this.width = width;
-        this.height = height;
         this.data = [];
         this.score = 0.01;
     }
@@ -13,7 +11,7 @@ class Population {
     createPopulation(grid) {
         console.log(this.population_size);
         for(var i = 0; i < this.population_size; i++) {
-            this.agents[i] = new Agent(grid.getStartX(), grid.getStartY(), this.width, this.height);
+            this.agents[i] = new Agent(grid.getStartX(), grid.getStartY(), agentSettings.getWidth(), agentSettings.getHeight());
         }
     }
 
@@ -33,9 +31,9 @@ class Population {
         }
 
        for(var i = 0; i < this.agents.length; i++) {
-           var hit = collideRectRect(a, b, grid.getWidth(), grid.getHeight(), this.agents[i].x, this.agents[i].y, this.width, this.height);
+           var hit = collideRectRect(a, b, grid.getWidth(), grid.getHeight(), this.agents[i].x, this.agents[i].y, this.agents[i].width, this.agents[i].height);
             if(hit || this.gen >= 50){ 
-                this.data.push([this.getPopSize(), GA.getMutation(), GA.getGenerations(), this.getScore()]);
+                this.data.push([this.getPopSize(), GA.getMutation(), GA.getGenerations(), this.getScore(), agentSettings.getHiddenNeurons()]);
                 GA.resetGen();
                 this.resetScore();
                 this.createPopulation(grid);
@@ -90,14 +88,6 @@ class Population {
         this.score = 0.01;
     }
 
-    getWidth() {
-        return this.width;
-    }
-
-    getHeight() {
-        return this.height;
-    }
-    
     getScore() {
         return this.score;
     }

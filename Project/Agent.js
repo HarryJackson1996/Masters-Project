@@ -23,11 +23,11 @@ class Agent {
         this.fitness = 0;
         if(brain instanceof NeuralNetwork) {
             this.brain = brain.copy();
-            //console.log("copy");
+            console.log("copy");
         } 
         else {
-            //console.log("new")
-            this.brain = new NeuralNetwork(6, 14, 1);
+            console.log("new")
+            this.brain = new NeuralNetwork(6, agentSettings.getHiddenNeurons(), 1);
         }   
     }
     
@@ -62,7 +62,7 @@ class Agent {
     show() {
         push();
         stroke(0);
-        fill(0,0,200);
+        fill(agentSettings.getColour());
         rect(this.x, this.y, this.width, this.height);
         pop();
     }
@@ -173,7 +173,7 @@ class Agent {
      * @returns {number} - Moves the agent up the canvas.
      */
     moveUp() {
-        return this.y -= 4;
+        return this.y -= agentSettings.getUp();
     }
 
     /**
@@ -189,7 +189,7 @@ class Agent {
      * @returns {number} - Moves the agent left across the canvas.
      */
     moveLeft() {
-        return this.x -= 5;    
+        return this.x -= agentSettings.getLeft();    
     }
 
     /**
@@ -197,6 +197,6 @@ class Agent {
      * @returns {number} - Moves the agent right across the canvas.
      */
     moveRight() {
-        return this.x += 5;   
+        return this.x += agentSettings.getRight();   
     } 
 }
