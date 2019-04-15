@@ -1,12 +1,11 @@
 class AgentSettings {
 
-    constructor(up, left, right, width, height, hidden_neurons) {
+    constructor(up, left, right, width, height) {
         this.MOVE_UP = up;
         this.MOVE_LEFT = left;
         this.MOVE_RIGHT = right;
         this.WIDTH = width;
         this.HEIGHT = height;
-        this.HIDDEN_NEURONS = hidden_neurons;
         this.COLOUR = "#ffae23";
     }
 
@@ -28,10 +27,6 @@ class AgentSettings {
 
     getHeight() {
         return this.HEIGHT;
-    }
-
-    getHiddenNeurons() {
-        return this.HIDDEN_NEURONS;
     }
 
     getColour() {

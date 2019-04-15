@@ -1,6 +1,9 @@
 {
     "source" : {
-        "include": ["../GA.js", "../sketch.js", "../Node.js", "../Grid.js", "../Settings.js", "../Agent.js"]
+        "include": ["../code/genetic/GA.js", "../code/genetic/Agent.js", "../code/genetic/AgentSettings.js", "../code/genetic/MatingPool.js",
+                    "../code/mapping/Grid.js", "../code/mapping/MapSettings.js", "../code/mapping/Node.js",
+                    "../code/util/GUI.js", "../code/util/Timer.js",
+                    "../code/sketch.js"]
     },
     "opts" : {
         "destination" : "../docs",

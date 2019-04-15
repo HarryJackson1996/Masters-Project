@@ -7,8 +7,9 @@ var pause = false;
 var population;
 
 function setup() {
-  settings = new Settings(420, 400, 20);
+  settings = new MapSettings(420, 400, 20);
   agentSettings = new AgentSettings(3, 3, 3, 10, 10, 20);
+  networkSettings = new NetworkSettings(20);
   createCanvas(settings.getWidth(), settings.getHeight());
   grid = new Grid(floor(settings.getWidth()/settings.getNodeSize()), 
   floor(settings.getHeight()/settings.getNodeSize()));

@@ -23,11 +23,11 @@ class Agent {
         this.fitness = 0;
         if(brain instanceof NeuralNetwork) {
             this.brain = brain.copy();
-            console.log("copy");
+            // console.log("copy");
         } 
         else {
-            console.log("new")
-            this.brain = new NeuralNetwork(6, agentSettings.getHiddenNeurons(), 1);
+            // console.log("new")
+            this.brain = new NeuralNetwork(6, networkSettings.getHiddenNeurons(), 1);
         }   
     }
     

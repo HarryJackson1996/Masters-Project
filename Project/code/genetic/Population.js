@@ -9,7 +9,7 @@ class Population {
     }
 
     createPopulation(grid) {
-        console.log(this.population_size);
+        // console.log(this.population_size);
         for(var i = 0; i < this.population_size; i++) {
             this.agents[i] = new Agent(grid.getStartX(), grid.getStartY(), agentSettings.getWidth(), agentSettings.getHeight());
         }
@@ -33,7 +33,7 @@ class Population {
        for(var i = 0; i < this.agents.length; i++) {
            var hit = collideRectRect(a, b, grid.getWidth(), grid.getHeight(), this.agents[i].x, this.agents[i].y, this.agents[i].width, this.agents[i].height);
             if(hit || this.gen >= 50){ 
-                this.data.push([this.getPopSize(), GA.getMutation(), GA.getGenerations(), this.getScore(), agentSettings.getHiddenNeurons()]);
+                this.data.push([this.getPopSize(), GA.getMutation(), GA.getGenerations(), this.getScore(), networkSettings.getHiddenNeurons()]);
                 GA.resetGen();
                 this.resetScore();
                 this.createPopulation(grid);

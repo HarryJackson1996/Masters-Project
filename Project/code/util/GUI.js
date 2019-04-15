@@ -112,7 +112,7 @@ class GUI {
 
     static NetworkSettings() {
         var network_folder = this.gui.addFolder('Network Settings');
-        network_folder.add(agentSettings, 'HIDDEN_NEURONS').name('Hidden-layer neurons')
+        network_folder.add(networkSettings, 'hiddenNodes').name('Hidden-layer neurons')
     }
 
     static outputPanel() {
