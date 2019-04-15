@@ -11,102 +11,26 @@ class Genetic {
      * @example 
      * var GA = new Genetic(10);
      */
-    constructor(population_size, width, height) {
-        this.population_size = population_size;
-        this.width = width;
-        this.height = height;
+    constructor() {
         this.mutation_rate = 0.1;
         this.gen = 1;
-        this.agents = [];
-        this.new_agents = [];
-        this.matingPool = [];
-        this.data = [];
-        this.score = 0.01;
-    }
-
-    checkGoalCollision() {
-        var grid2 = grid.getGrid();
-        var x;
-        var y;
-        for(var i = 0; i < grid2.length; i++){
-            if(grid2[i].goal == true){
-                x = grid2[i].x;
-                y = grid2[i].y;
-            }
-       }
-       for(var i = 0; i < this.agents.length; i++) {
-        var hit = collideRectRect(x, y, grid2[i].getWidth(), grid2[i].getHeight(), 
-        this.agents[i].x, this.agents[i].y, this.agents[i].width, this.agents[i].height);
-        if(hit){ 
-            this.data.push([this.getPopulationSize(), this.getMutation(), this.getGenerations(), this.getScore()]);
-            this.population_size -= 20;
-            this.resetGen();
-            this.resetScore();
-            this.createPopulation();
-        }
-       }  
-    } 
-
-    getData() {
-        return this.data;
-    }
-
-    /**
-     * @description - Creates the first population of agents initialised with random neural networks.
-     * @see Agent
-     */
-    createPopulation() {    
-        for(var i = 0; i < this.population_size; i++) {
-            this.agents[i] = new Agent(grid.getStartX(), grid.getStartY(), this.width, this.height);
-        }
-    }
-
-    /**
-     * @description - The main method for running the population.
-     * 
-     * @see Agent#makeDecision
-     * @see Agent#checkCollision
-     * @see Agent#show
-     */
-    runPopulation() {
-        for(var i = 0; i < this.agents.length; i++) {
-            this.agents[i].makeDecision(grid);
-            this.agents[i].checkCollision();
-            this.checkGoalCollision();
-        } 
-        this.score += 0.01;
-    }
-
-    drawPopulation() {
-        for(var i = 0; i < this.agents.length; i++) {
-            this.agents[i].show();
-        }
-    }
-
-    /**
-     * @description - Method for deleting crashed agents from the canvas.
-     */
-    killMember() {
-        for(var i = 0; i < this.agents.length; i++) {
-            if(this.agents[i].CRASHED == true) {
-                this.new_agents.push(this.agents.splice(i, 1)[0]);
-            }
-        }
+        this.matingPool = new MatingPool();
+        this.counter = 0;
     }
 
     /**
      * @description - Creates a new population based on the fitness of the previous popualtion.
      */
-    newPopulation() {
-        if(this.agents.length == 0){
+    evolve() {
+        if(population.getAgents() == 0){
             this.calculateFitness();
-            for(var i = 0; i < this.population_size; i++){
-                this.agents[i] = this.selection();
+            this.matingPool.getMatingPool();
+            for(var i = 0; i < population.getPopSize(); i++){
+                population.getAgents()[i] = this.selection();
             }
-            //console.log(this.agents.length);
-            this.score = 0;
             this.gen += 1;
-            this.new_agents = [];
+            population.resetNewAgents();
+            population.resetScore();
         }
     }
 
@@ -116,19 +40,16 @@ class Genetic {
      */
     calculateFitness() {
         var maximum_fitness = 0;
-
-        for(var i = 0; i < this.new_agents.length; i++) {
-            var agent_fitness = this.new_agents[i].getFitness();
-            // console.log(agent_fitness);
+        for(var i = 0; i < population.getNewAgents().length; i++) {   
+            var agent_fitness = population.getNewAgents()[i].getFitness();
             if(agent_fitness > maximum_fitness) {
                 maximum_fitness = agent_fitness;
             } 
         }
         // console.log("max fit: "+ maximum_fitness);
-
-        for(var i = 0; i < this.new_agents.length; i++) {
-            this.new_agents[i].fitness /= maximum_fitness;       
-            //console.log(i + ": " + this.new_agents[i].fitness);
+        for(var i = 0; i < population.getNewAgents().length; i++) {
+            population.getNewAgents()[i].fitness /= maximum_fitness;       
+            // console.log(i + ": " + population.getNewAgents()[i].fitness*100);
         }     
     }
 
@@ -137,42 +58,24 @@ class Genetic {
      * @return {object} - The new agent.
      */
     selection() {
-        for(var i = 0; i < this.population_size; i++) {
-            var n = this.new_agents[i].fitness * 1000;
-            //console.log(n);
-            for(var j = 0; j < n; j++) {
-                this.matingPool.push(this.new_agents[i]);
-            }
-        } 
-        var picked = random(this.matingPool);
-        //console.log("adult" + picked.brain.weights_ho.data + ": " + picked.fitness);
-        var child = new Agent(grid.getStartX(), grid.getStartY(), this.width, this.height, picked.brain);
+        var picked = random(this.matingPool.mating_pool);
+        // console.log(picked);
+        // console.log(picked.brain);
+        var child = new Agent(grid.getStartX(), grid.getStartY(), agentSettings.getWidth(), agentSettings.getHeight(), picked.brain);
         child.brain.mutate(this.mutation_rate);
-        //console.log("child" + child.brain.weights_ho.data + ": " + picked.fitness);
+        // console.log("child" + child.brain.weights_ho.data + ": " + picked.fitness);
         return child;  
     }
     
-    getMutation() {
-        return this.mutation_rate;
-    }
-
     resetGen() {
         this.gen = 1;
     }
 
-    resetScore() {
-        this.score = 0.01;
+    getMutation() {
+        return this.mutation_rate;
     }
     
-    getPopulationSize() {
-        return this.population_size;
-    }
-
     getGenerations() {
         return this.gen;
-    }
-
-    getScore() {
-        return this.score;
     }
 }

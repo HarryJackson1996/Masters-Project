@@ -169,7 +169,7 @@ class Grid {
         for(var i = 0; i < this.grid.length; i++){
             if(this.grid[i].start == true) {
                 //console.log(this.grid[i].x);
-                return this.grid[i].x;
+                return this.grid[i].x + this.getWidth()/4;
             }
         }
     }
@@ -180,7 +180,7 @@ class Grid {
     getStartY() {
         for(var i = 0; i < this.grid.length; i++){
             if(this.grid[i].start == true) {
-                return this.grid[i].y;
+                return this.grid[i].y + this.getHeight()/4;
             }
         }
     }
