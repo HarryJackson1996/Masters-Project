@@ -1,5 +1,7 @@
 #gui {
     width: 100px;
+    position: absolute;
+    top: 7px;
 }
 
 .dg .cr.boolean {

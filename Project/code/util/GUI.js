@@ -71,12 +71,13 @@ class GUI {
         map_folder.add(settings, 'SCREEN_HEIGHT', 200, 800, 20).name("Grid Height");
         map_folder.add(settings, 'NODE_SIZE', 0, 100, 10).name("Node Size");
 
-        this.obj = { Update:function(){
+        this.update = { Update:function(){
             var checkX = (settings.getWidth()-1)/settings.getNodeSize();
             var checkY = (settings.getHeight()-1)/settings.getNodeSize();
             try {
-                if(checkX%1!=0 || checkY%1!=0) throw error;
-                else {
+                if(checkX%1!=0 || checkY%1!=0) {
+                    throw error;
+                } else {
                     createCanvas(settings.getWidth(), settings.getHeight());
                     grid = new Grid(floor(settings.getWidth()/settings.getNodeSize()), 
                     floor(settings.getHeight()/settings.getNodeSize()));
@@ -84,14 +85,14 @@ class GUI {
                     document.getElementById("gui").style.position = "absolute";
                     document.getElementById("gui").style.left = settings.getWidth() + 20;
                     document.getElementById("gui").style.top = 7; 
-                }
-                
+                }  
             }
             catch(error) {
                 window.alert("nope");            
             }          
-            }};
-            map_folder.add(this.obj, 'Update');
+        }};
+
+        map_folder.add(this.update, 'Update');
     }
 
     static AgentSettings() {

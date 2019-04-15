@@ -17,9 +17,7 @@ function setup() {
   population = new Population(350);
   GA = new Genetic();
   GUI.createGUI();
-  document.getElementById("gui").style.position = "absolute";
   document.getElementById("gui").style.left = settings.getWidth() + 20;
-  document.getElementById("gui").style.top = 7;
   const element1 = document.querySelector('.cr.function:nth-child(5)');
   const element2 = document.querySelector('.cr.function:nth-child(6)');
   const element3 = document.querySelector('.cr.function:nth-child(7)');

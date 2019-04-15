@@ -57,6 +57,10 @@ class Grid {
         return this.grid;
     }
 
+    clearGrid() {
+        return this.grid = [];
+    }
+
     /**
      * @description - Handles Drawing the grid object to the canvas.
      * @see Node#drawNode
