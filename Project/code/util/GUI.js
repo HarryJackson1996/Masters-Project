@@ -1,23 +1,48 @@
+/**
+ * @author Harry Jackson 
+ * {@link https://github.com/HarryJackson1996/Masters-Project}
+ */
 class GUI {
 
-    constructor(gui) {
-        this.gui = gui;
+    /** 
+     * @constructor
+     * @property {Variable} - Variable for storing GUI data. 
+     */
+    constructor() {
+        this.gui;
     }
 
+    /**
+     * @static
+     * @description - This method handles pulling together all folders and then creates 
+     * the GUI object/ primary controller.
+     * @property {Event} start - Starts the program. 
+     * @property {Event} pause - Pauses the program. 
+     * @property {Event} stop - Stops (resets) the program. 
+     * @property {Event} CSV - Downloads the CSV file. 
+     * @returns {Object} - The GUI.
+     * 
+     * @see GUI.mapController 
+     * @see GUI.agentController 
+     * @see GUI.geneticController 
+     * @see GUI.networkController 
+     * @see GUI.outputPanel
+
+     */
     static createGUI() {
         this.gui = new dat.GUI({ autoplace: false });    
         this.gui.domElement.id = 'gui';   
-        GUI.MapFolder();
-        GUI.AgentSettings();
-        GUI.GeneticSettings();
-        GUI.NetworkSettings();
+        
+        GUI.mapController();
+        GUI.agentController();
+        GUI.geneticController();
+        GUI.networkController();
         GUI.outputPanel();
 
         this.start = { Start:function(){
             if(pause==false) {
             population.createPopulation(grid);
             }
-
             pause = false;
             start = true;
             stop = false;
@@ -63,9 +88,21 @@ class GUI {
             hiddenElement.click();
         }};
         this.gui.add(this.CSV, 'CSV').name("Download CSV");
+        return this.gui;
     }
 
-    static MapFolder() {
+    /**
+     * @static
+     * @description - This method creates a (GUI) folder which is the specific controller 
+     * segment used for manipulating Map data in the framework.
+     * @property {Event} update - Updates the map object.  
+     * @throws {alert} - Throws window alert if WIDTH/NODE_SIZE and HEIGHT/NODE_SIZE does not equal 0.
+     * @returns {Object} - The folder for controlling Map data.
+     * 
+     * @see MapSettings
+     * 
+     */
+    static mapController() {
         var map_folder = this.gui.addFolder('Map settings');
         map_folder.add(settings, 'SCREEN_WIDTH', 200, 800, 20, 'speed').name("Grid Width");
         map_folder.add(settings, 'SCREEN_HEIGHT', 200, 800, 20).name("Grid Height");
@@ -89,13 +126,20 @@ class GUI {
             }
             catch(error) {
                 window.alert("nope");            
-            }          
+            }    
         }};
-
         map_folder.add(this.update, 'Update');
+        return map_folder;      
     }
 
-    static AgentSettings() {
+    /**
+     * @static
+     * @description - This method creates a (GUI) folder which is the specific controller 
+     * segment used for manipulating Agent data in the framework.
+     * @returns {Object} - The folder for controlling Agent data. 
+     * @see AgentSettings
+     */
+    static agentController() {
         var agent_folder = this.gui.addFolder('Agent Settings');
         agent_folder.add(agentSettings, 'WIDTH').name("Agents Width");
         agent_folder.add(agentSettings, 'HEIGHT').name("Agents Height");   
@@ -103,19 +147,43 @@ class GUI {
         agent_folder.add(agentSettings, 'MOVE_LEFT', 0, 10, 0.5).name("Left speed");   
         agent_folder.add(agentSettings, 'MOVE_RIGHT', 0, 10, 0.5).name("Right speed");   
         agent_folder.addColor(agentSettings, 'COLOUR').name("Colour");   
+        return agent_folder;
     }
 
-    static GeneticSettings() {
+    /**
+     * @static
+     * @description - This method creates a (GUI) folder which is the specific controller 
+     * segment used for manipulating Agent data in the framework.
+     * @returns {Object} - The folder for controlling Genetic data.
+     * @see Population
+     * @see GA
+     */
+    static geneticController() {
         var genetic_folder = this.gui.addFolder('Genetic Settings');
         genetic_folder.add(population, 'population_size').name("Population size");
         genetic_folder.add(GA, 'mutation_rate').name("Mutation rate");        
+        return genetic_folder;
     }
 
-    static NetworkSettings() {
+    /**
+     * @static
+     * @description - This method creates a (GUI) folder which is the specific controller 
+     * segment used for manipulating Neural Network data in the framework.
+     * @returns {Object} - The folder for controlling NeuralNetwork data.
+     * @see NetworkSettings
+     */
+    static networkController() {
         var network_folder = this.gui.addFolder('Network Settings');
         network_folder.add(networkSettings, 'hiddenNodes').name('Hidden-layer neurons')
+        return network_folder;
     }
 
+    /**
+     * @static
+     * @description - This method creates a (GUI) folder that in real-time displays all 
+     * the crucial data from the other folders in the GUI.
+     * @returns {object} - The folder for displaying outputs from framework.
+     */
     static outputPanel() {
         var output_folder = this.gui.addFolder('OUTPUTS')
         output_folder.add(GA, 'gen').listen().name("Generation Number")
@@ -123,6 +191,6 @@ class GUI {
         output_folder.add(GA, 'mutation_rate').name("Mutation rate").listen();    
         output_folder.add(population, 'score').name("Score").listen();
         output_folder.open();
+        return output_folder;
     }
-
 }

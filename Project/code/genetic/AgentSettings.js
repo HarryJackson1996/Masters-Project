@@ -13,6 +13,10 @@ class AgentSettings {
         return this.MOVE_UP;
     }
 
+    getDown() {
+        return this.MOVE_UP;
+    }
+
     getLeft() {
         return this.MOVE_LEFT;
     }

@@ -27,7 +27,7 @@ class Agent {
         } 
         else {
             // console.log("new")
-            this.brain = new NeuralNetwork(6, networkSettings.getHiddenNeurons(), 1);
+            this.brain = new NeuralNetwork(6, networkSettings.getHiddenNodes(), 1);
         }   
     }
     
@@ -127,17 +127,30 @@ class Agent {
         // }
         
         let output = this.brain.predict(inputs); 
-        
-        if(output < 0.3333) {
+
+        if(output < 0.25) {
             this.moveLeft();
         } 
-        else if(output >= 0.3333 && output < 0.6666) {
+        else if(output >= 0.25 && output < 0.5) {
             this.moveUp();
         }
-        else if(output >= 0.6666 && output < 1) {
+        else if(output >= 0.5 && output < 0.75) {
             this.moveRight();
-
         }
+        else {
+            this.moveDown();
+        }
+        
+        // if(output < 0.3333) {
+        //     this.moveLeft();
+        // } 
+        // else if(output >= 0.3333 && output < 0.6666) {
+        //     this.moveUp();
+        // }
+        // else if(output >= 0.6666 && output < 1) {
+        //     this.moveRight();
+
+        // }
     }
     
     /**
@@ -181,9 +194,9 @@ class Agent {
      * @returns {number} - Moves the agents dowm the canvas.
      */
     moveDown() {
-        return this.y += 5;
+        return this.y += 3;
     }
-
+    
     /**
      * @description - Controls the agents movement permitting the agent to move left across the canvas
      * @returns {number} - Moves the agent left across the canvas.

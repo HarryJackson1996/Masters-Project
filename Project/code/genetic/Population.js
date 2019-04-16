@@ -33,7 +33,7 @@ class Population {
        for(var i = 0; i < this.agents.length; i++) {
            var hit = collideRectRect(a, b, grid.getWidth(), grid.getHeight(), this.agents[i].x, this.agents[i].y, this.agents[i].width, this.agents[i].height);
             if(hit || this.gen >= 50){ 
-                this.data.push([this.getPopSize(), GA.getMutation(), GA.getGenerations(), this.getScore(), networkSettings.getHiddenNeurons()]);
+                this.data.push([this.getPopSize(), GA.getMutation(), GA.getGenerations(), this.getScore(), networkSettings.getHiddenNodes()]);
                 GA.resetGen();
                 this.resetScore();
                 this.createPopulation(grid);

@@ -1,10 +1,21 @@
+/**
+ * @author Harry Jackson 
+ * {@link https://github.com/HarryJackson1996/Masters-Project}
+ */
 class Timer {
     
+    /**
+     * @constructor 
+     * @property {Number} time - Counter for measuring time.
+     * @property {Variable} interval -  Variable for handling time interval functionality.
+     * @todo - Intergrate logic into framework if time permits.
+     */
     constructor() {
         this.time = 0;
         this.interval;
     }
 
+    /** @description - Creates a timer object. */
     newTimer() {
         var startTime = Date.now();
         this.interval = setInterval(function() {
@@ -15,10 +26,12 @@ class Timer {
         on = true;
     }
 
+    /** @description - Stops the timer. */
     stopTimer() {
-        clearInterval(this.interval);
+        return clearInterval(this.interval);
     }
 
+    /** @returns {Date} - The current time. */
     getTime() {
         return this.time;
     }
