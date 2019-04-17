@@ -64,26 +64,6 @@ class Grid {
     }
 
     /**
-     * @returns - Returns the width of a single Node from the Grid object.
-     * @see Node#getWidth
-     */
-    getWidth() {
-        for(var i = 0; this.grid.length; i++){ 
-            return this.grid[i].getWidth();
-        }
-    }
-
-    /**
-     * @returns - Returns the height of a single Node from the Grid object.
-     * @see Node#getHeight
-     */
-    getHeight() {
-        for(var i = 0; this.grid.length; i++){ 
-            return this.grid[i].getHeight();
-        }
-    }
-
-    /**
      * @description - This method allows the user to click and drag the 
      * start Node with their mouse and set its new location in the grid object.
      * @see Node#setNormal
@@ -138,7 +118,27 @@ class Grid {
     }
 
     /**
-     * @returns - Returns the x position of the goal node from the grid object.
+     * @returns - Returns the width of a single Node from the Grid object.
+     * @see Node#getWidth
+     */
+    getWidth() {
+        for(var i = 0; this.grid.length; i++){ 
+            return this.grid[i].getWidth();
+        }
+    }
+
+    /**
+     * @returns - Returns the height of a single Node from the Grid object.
+     * @see Node#getHeight
+     */
+    getHeight() {
+        for(var i = 0; this.grid.length; i++){ 
+            return this.grid[i].getHeight();
+        }
+    }
+
+    /**
+     * @returns - Returns the x position of the goal Node from the Grid object.
      */
     getGoalX() {
         for(var i = 0; i < this.grid.length; i++){
@@ -160,8 +160,8 @@ class Grid {
         }
     }
 
-     /**
-     * @returns - The x position of the start Node from the Grid object.
+    /**
+     * @returns - Returns the x position of the start Node from the Grid object.
      */
     getStartX() {
         for(var i = 0; i < this.grid.length; i++){
@@ -173,7 +173,7 @@ class Grid {
     }
 
     /**
-     * @returns - The y position of the start Node from the Grid object.
+     * @returns - Returns the y position of the start Node from the Grid object.
      */
     getStartY() {
         for(var i = 0; i < this.grid.length; i++){
@@ -184,7 +184,7 @@ class Grid {
     }
     
     /**
-     * @description - Iterates over the grid object (array) and calls the Node method 'clicked'.
+     * @description - Iterates over the Grid object (array) and calls the Node method 'clicked'.
      * @see Node#clicked
      */
     mouseClicked() {
@@ -196,7 +196,7 @@ class Grid {
     }
 
     /**
-     * @returns {array} - Returns the grid object.
+     * @returns {Array} - Returns the grid object.
      */
     getGrid() {
         return this.grid;
