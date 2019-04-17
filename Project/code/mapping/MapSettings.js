@@ -1,5 +1,5 @@
 class MapSettings {
-
+    
     /**
      * @constructor
      * 
@@ -16,12 +16,16 @@ class MapSettings {
         this.NODE_SIZE = size;
     }
 
-    /** @returns {Number} - Returns the Canvas width. */
+    /** 
+     * @returns {Number} - Returns the Canvas width. 
+     */
     getWidth() {
         return this.SCREEN_WIDTH + 1;
     }
 
-    /** @returns {Number} - Returns the Canvas height. */
+    /** 
+     * @returns {Number} - Returns the Canvas height. 
+     */
     getHeight() {
         return this.SCREEN_HEIGHT + 1;
     }

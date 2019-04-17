@@ -9,7 +9,9 @@ class NetworkSettings {
         this.hiddenNodes = hidden;
     }
 
-    /** @returns {Number} - Returns the number of hidden nodes. */
+    /** 
+     * @returns {Number} - Returns the number of hidden nodes.
+     */
     getHiddenNodes() {
         // console.log(this.hiddenNodes)
         return this.hiddenNodes;

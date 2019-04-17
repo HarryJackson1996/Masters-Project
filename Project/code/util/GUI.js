@@ -1,7 +1,3 @@
-/**
- * @author Harry Jackson 
- * {@link https://github.com/HarryJackson1996/Masters-Project}
- */
 class GUI {
 
     /** 
@@ -27,7 +23,7 @@ class GUI {
      * @see GUI.geneticController 
      * @see GUI.networkController 
      * @see GUI.outputPanel
-
+     * 
      */
     static createGUI() {
         this.gui = new dat.GUI({ autoplace: false });    
@@ -97,7 +93,7 @@ class GUI {
      * segment used for manipulating Map data in the framework.
      * @property {Event} update - Updates the map object.  
      * @throws {alert} - Throws window alert if WIDTH/NODE_SIZE and HEIGHT/NODE_SIZE does not equal 0.
-     * @returns {Object} - The folder for controlling Map data.
+     * @returns {Object} - Returns the folder for controlling Map data.
      * 
      * @see MapSettings
      * 
@@ -136,7 +132,7 @@ class GUI {
      * @static
      * @description - This method creates a (GUI) folder which is the specific controller 
      * segment used for manipulating Agent data in the framework.
-     * @returns {Object} - The folder for controlling Agent data. 
+     * @returns {Object} - Returns the folder for controlling Agent data. 
      * @see AgentSettings
      */
     static agentController() {
@@ -154,7 +150,7 @@ class GUI {
      * @static
      * @description - This method creates a (GUI) folder which is the specific controller 
      * segment used for manipulating Agent data in the framework.
-     * @returns {Object} - The folder for controlling Genetic data.
+     * @returns {Object} - Returns the folder for controlling Genetic data.
      * @see Population
      * @see GA
      */
@@ -169,7 +165,7 @@ class GUI {
      * @static
      * @description - This method creates a (GUI) folder which is the specific controller 
      * segment used for manipulating Neural Network data in the framework.
-     * @returns {Object} - The folder for controlling NeuralNetwork data.
+     * @returns {Object} - Returns the folder for controlling NeuralNetwork data.
      * @see NetworkSettings
      */
     static networkController() {
@@ -182,7 +178,7 @@ class GUI {
      * @static
      * @description - This method creates a (GUI) folder that in real-time displays all 
      * the crucial data from the other folders in the GUI.
-     * @returns {object} - The folder for displaying outputs from framework.
+     * @returns {Object} - Returns the folder for displaying outputs from framework.
      */
     static outputPanel() {
         var output_folder = this.gui.addFolder('OUTPUTS')

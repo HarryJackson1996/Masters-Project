@@ -1,7 +1,3 @@
-/**
- * @author Harry Jackson 
- * {@link https://github.com/HarryJackson1996/Masters-Project}
- */
 class Timer {
     
     /**
@@ -15,7 +11,9 @@ class Timer {
         this.interval;
     }
 
-    /** @description - Creates a timer object. */
+    /** 
+     * @description - Creates a timer object. 
+     */
     newTimer() {
         var startTime = Date.now();
         this.interval = setInterval(function() {
@@ -26,12 +24,16 @@ class Timer {
         on = true;
     }
 
-    /** @description - Stops the timer. */
+    /** 
+     * @description - Stops the timer. 
+     */
     stopTimer() {
         return clearInterval(this.interval);
     }
 
-    /** @returns {Date} - The current time. */
+    /** 
+     * @returns {Date} - Returns the current time. 
+     */
     getTime() {
         return this.time;
     }
