@@ -5,10 +5,12 @@ var start = false;
 var stop = false;
 var pause = false;
 var population;
+var data = [];
 
 function setup() {
-  settings = new Settings(420, 400, 20);
-  agentSettings = new AgentSettings(3, 3, 3, 10, 10, 20);
+  settings = new MapSettings(420, 400, 20);
+  agentSettings = new AgentSettings(3, 3, 3, 3, 10, 10);
+  networkSettings = new NetworkSettings(20);
   createCanvas(settings.getWidth(), settings.getHeight());
   grid = new Grid(floor(settings.getWidth()/settings.getNodeSize()), 
   floor(settings.getHeight()/settings.getNodeSize()));
@@ -16,9 +18,7 @@ function setup() {
   population = new Population(350);
   GA = new Genetic();
   GUI.createGUI();
-  document.getElementById("gui").style.position = "absolute";
   document.getElementById("gui").style.left = settings.getWidth() + 20;
-  document.getElementById("gui").style.top = 7;
   const element1 = document.querySelector('.cr.function:nth-child(5)');
   const element2 = document.querySelector('.cr.function:nth-child(6)');
   const element3 = document.querySelector('.cr.function:nth-child(7)');
@@ -50,7 +50,7 @@ function draw() {
   background(30); 
   grid.drawGrid();
   if(start == true && pause == false && stop == false) {
-  population.killMember();
+  population.killAgent();
   GA.evolve();
   population.runPopulation();
   population.drawPopulation();
