@@ -2,14 +2,14 @@ class Agent {
    
     /**
      * 
-     * @param {number} x - The agents x position.
-     * @param {number} y - The agents y position.
-     * @param {number} width - The width of the agent.
-     * @param {number} height - The height of the agent.
-     * @param {number:3} brain - The agents Neural network (brain) or null.
+     * @param {number} x - The Agents x position.
+     * @param {number} y - The Agents y position.
+     * @param {number} width - The width of the Agent.
+     * @param {number} height - The height of the Agent.
+     * @param {number:3} brain - The Agents Neural network (brain) or null.
      * 
-     * @property {boolean} CRASHED - The state of the agent, it is either moving or crashed.
-     * @property {number} fitness - The agents fitness.
+     * @property {boolean} CRASHED - The state of the Agent, it is either moving or crashed.
+     * @property {number} fitness - The Agents fitness.
      * 
      * @example
      * var agent = new Agent(0, 0, 10, 10, new NeuralNetwork(6, 10, 1));
@@ -23,17 +23,17 @@ class Agent {
         this.fitness = 0;
         if(brain instanceof NeuralNetwork) {
             this.brain = brain.copy();
-            // console.log("copy");
+            console.log("copy");
         } 
         else {
-            // console.log("new")
+            console.log("new")
             this.brain = new NeuralNetwork(6, networkSettings.getHiddenNodes(), 1);
         }   
     }
     
     /**
-     * @description - Checks if the agent has collided with the canvas bounds or nodes with a blocked state.
-     * @returns {boolean} - If the agent has collided.
+     * @description - Checks if the Agent has collided with the canvas bounds or nodes with a blocked state.
+     * @returns {Boolean} - Returns true If the Agent has collided.
      */
     checkCollision() {
         var grid2 = grid.getGrid();
@@ -57,7 +57,38 @@ class Agent {
     }
 
     /**
-     * @description - Draws the agent to the canvas.
+     * @description - This method checks if any of the Agents have collided with the goal. 
+     * 
+     * @see GA#resetGen
+     * @see #resetScore
+     * @see #createPopulation(grid)
+     */
+    checkGoalCollision(agents) {
+        var grid2 = grid.getGrid();
+        var a;
+        var b;
+        for(var i = 0; i < grid2.length; i++){
+            if(grid2[i].goal == true){
+                a = grid2[i].x;
+                b = grid2[i].y;
+            }
+        }
+
+        for(var i = 0; i < agents.length; i++) {
+            var hit = collideRectRect(a, b, grid.getWidth(), grid.getHeight(),
+            agents[i].x, agents[i].y, agents[i].width, agents[i].height);
+            if(hit || this.gen >= 50){ 
+                data.push([population.getPopSize(), GA.getMutation(), GA.getGenerations(), population.getScore(), networkSettings.getHiddenNodes()]);
+                console.log(data);
+                GA.resetGen();
+                population.resetScore();
+                population.createPopulation(grid);
+            } 
+        }
+    } 
+
+    /**
+     * @description - Handles drawing the Agent to the canvas.
      */
     show() {
         push();
@@ -68,8 +99,8 @@ class Agent {
     }
 
     /**
-     * @description - Calculates the agent fitness based on how close they got to the goal node.
-     * @returns {number} - The agents fitness value.
+     * @description - Calculates the Agent fitness based on how close they got to the goal node.
+     * @returns {Nnumber} - The Agents fitness value.
      */
     getFitness() {
         var getGrid = grid.getGrid();
@@ -96,8 +127,10 @@ class Agent {
     }  
     
     /**
-     * @description - Values input into the Neural Network are computed to a movement function.
-     * @param {object} grid - expects a grid object as an argument. 
+     * @description - We represent the hidden layer as an array whereby each node represents a seperate index in the Array.
+     * This array is fed into the neural network library whereby the inputs are computed and converted to an output value.
+     * The output value is then mapped to a specific movement, which controls the direction in which the Agents move.
+     * @param {Object} grid - expects a Grid object as an argument. 
      */
     makeDecision(grid) {
         var closestBlocked = 0;
@@ -114,12 +147,12 @@ class Agent {
         // var distToGoal = dist(this.x, this.y, grid.getGoalX(), grid.getGoalY());
         // console.log(distToGoal);
         let inputs = [];
-        inputs[0] = this.x;
-        inputs[1] = this.y;
-        inputs[2] = closestBlocked;
-        inputs[3] = grid.getGoalX();
-        inputs[4] = grid.getGoalY();
-        inputs[5] = grid.getWidth();
+        inputs[0] = this.x/100;
+        inputs[1] = this.y/100;
+        inputs[2] = closestBlocked/100;
+        inputs[3] = grid.getGoalX()/100;
+        inputs[4] = grid.getGoalY()/100;
+        inputs[5] = grid.getWidth()/100;
         // inputs[6] = distToGoal;
        
         // for(var i = 0; i < inputs.length; i++) {
@@ -140,76 +173,73 @@ class Agent {
         else {
             this.moveDown();
         }
-        
-        // if(output < 0.3333) {
-        //     this.moveLeft();
-        // } 
-        // else if(output >= 0.3333 && output < 0.6666) {
-        //     this.moveUp();
-        // }
-        // else if(output >= 0.6666 && output < 1) {
-        //     this.moveRight();
-
-        // }
     }
     
     /**
-     * @returns {number} - The agents height.
+     * @returns {Number} - The Agents height.
      */
     getHeight() {
         return this.height;
     }    
 
     /**
-     * @returns {number} - The agents width.
+     * @returns {Number} - The Agents width.
      */
     getWidth() {
         return this.width;
     }
 
     /**
-     * @returns {number} - The agents x position.
+     * @returns {Number} - The Agents x position.
      */
     getX() {
         return this.x;
     }
 
     /**
-     * @returns {number} - The agents y position.
+     * @returns {Number} - The Agents y position.
      */
     getY() {
         return this.y;
     }
 
     /**
-     * @description - Controls the agents movement permitting the agent to move up the canvas
-     * @returns {number} - Moves the agent up the canvas.
+     * @description - Controls the Agents movement permitting the Agent to move up the canvas
+     * @returns {Number} - Moves the Agent up the canvas.
+     * 
+     * @see AgentSettings#getUpVelocity
      */
     moveUp() {
-        return this.y -= agentSettings.getUp();
+        return this.y -= agentSettings.getUpVelocity();
     }
 
     /**
-     * @description - Controls the agents movement permitting the agent to move down the canvas
-     * @returns {number} - Moves the agents dowm the canvas.
+     * @description - Controls the Agents movement permitting the Agent to move down the canvas
+     * @returns {Number} - Moves the Agents dowm the canvas.
+     * 
+     * @see AgentSettings#getDownVelocity
      */
     moveDown() {
-        return this.y += 3;
+        return this.y += agentSettings.getDownVelocity();
     }
     
     /**
-     * @description - Controls the agents movement permitting the agent to move left across the canvas
-     * @returns {number} - Moves the agent left across the canvas.
+     * @description - Controls the Agents movement permitting the Agent to move left across the canvas
+     * @returns {Number} - Moves the Agent left across the canvas.
+     * 
+     * @see AgentSettings#getLeftVelocity
      */
     moveLeft() {
-        return this.x -= agentSettings.getLeft();    
+        return this.x -= agentSettings.getLeftVelocity();    
     }
 
     /**
-     * @description - Controls the agents movement permitting the agent to move right across the canvas
-     * @returns {number} - Moves the agent right across the canvas.
+     * @description - Controls the Agents movement permitting the Agent to move right across the canvas
+     * @returns {Number} - Moves the Agent right across the canvas.
+     * 
+     * @see AgentSettings#getRightVelocity
      */
     moveRight() {
-        return this.x += agentSettings.getRight();   
+        return this.x += agentSettings.getRightVelocity();   
     } 
 }

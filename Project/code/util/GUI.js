@@ -70,8 +70,6 @@ class GUI {
         this.gui.add(this.stop, 'Stop');
 
         this.CSV = {CSV:function() {
-            var data = population.getData();
-            console.log(data);
             var csv = 'Population size, Mutation rate, Generations, Time taken, Hidden Neurons\n';
             data.forEach(function(row) {
                     csv += row.join(',');
@@ -139,9 +137,10 @@ class GUI {
         var agent_folder = this.gui.addFolder('Agent Settings');
         agent_folder.add(agentSettings, 'WIDTH').name("Agents Width");
         agent_folder.add(agentSettings, 'HEIGHT').name("Agents Height");   
-        agent_folder.add(agentSettings, 'MOVE_UP', 0, 10, 0.5).name("Up speed");   
-        agent_folder.add(agentSettings, 'MOVE_LEFT', 0, 10, 0.5).name("Left speed");   
-        agent_folder.add(agentSettings, 'MOVE_RIGHT', 0, 10, 0.5).name("Right speed");   
+        agent_folder.add(agentSettings, 'UP_VELOCITY', 0, 10, 0.5).name("Up speed");   
+        agent_folder.add(agentSettings, 'DOWN_VELOCITY', 0, 10, 0.5).name("Down speed");   
+        agent_folder.add(agentSettings, 'LEFT_VELOCITY', 0, 10, 0.5).name("Left speed");   
+        agent_folder.add(agentSettings, 'RIGHT_VELOCITY', 0, 10, 0.5).name("Right speed");   
         agent_folder.addColor(agentSettings, 'COLOUR').name("Colour");   
         return agent_folder;
     }
@@ -170,7 +169,7 @@ class GUI {
      */
     static networkController() {
         var network_folder = this.gui.addFolder('Network Settings');
-        network_folder.add(networkSettings, 'hiddenNodes').name('Hidden-layer neurons')
+        network_folder.add(networkSettings, 'HIDDEN_NODES').name('Hidden-layer neurons')
         return network_folder;
     }
 

@@ -8,19 +8,21 @@ class Population {
      * @property {Array} new_agents - The array is used for storing the agents who have collided with Node objects.
      * @property {Array} data - The array will store all data that will be pushed to the CSV file.
      * @property {Number} score - The score increments per generation.
+     * 
+     * @example 
+     * var population = new Population(100);
      */
     constructor(population_size) {
         this.population_size = population_size;
         this.agents = [];
-        this.new_agents = [];
-        this.data = [];
+        this.dead_agents = [];
         this.score = 0.01;
     }
 
     /**
      * @description - This method handles creating the population by iterating over
      * the population_size and pushing Agent objects to the agents array.
-     * @param {Grid} grid - A grid object.
+     * @param {Grid} grid - The current Grid object.
      * @see Agent
      * @see Grid#getStartX
      * @see Grid#getStartY
@@ -35,46 +37,17 @@ class Population {
     }
 
     /**
-     * @returns {Array} - Returns an empty agents array.
-     */
-    clearPopulation() {
-        return this.agents = [];
-    }
-
-    /**
-     * 
-     */
-    checkGoalCollision() {
-        var grid2 = grid.getGrid();
-        var a;
-        var b;
-        for(var i = 0; i < grid2.length; i++){
-            if(grid2[i].goal == true){
-                a = grid2[i].x;
-                b = grid2[i].y;
-            }
-        }
-
-       for(var i = 0; i < this.agents.length; i++) {
-           var hit = collideRectRect(a, b, grid.getWidth(), grid.getHeight(), this.agents[i].x, this.agents[i].y, this.agents[i].width, this.agents[i].height);
-            if(hit || this.gen >= 50){ 
-                this.data.push([this.getPopSize(), GA.getMutation(), GA.getGenerations(), this.getScore(), networkSettings.getHiddenNodes()]);
-                GA.resetGen();
-                this.resetScore();
-                this.createPopulation(grid);
-            } 
-        }
-    } 
-
-    /**
-     * @description - This method runs the population, it invokes the neural network methods,
-     * and checks the Agent collision with blocked Node and the goal Node.
+     * @description - This method runs the population, it handles calling all methods required 
+     * by the population to function.
+     * @see Agent#makeDecision
+     * @see Agent#checkCollision
+     * @see #checkGoalCollision
      */
     runPopulation() {
         for(var i = 0; i < this.agents.length; i++) {
             this.agents[i].makeDecision(grid);
             this.agents[i].checkCollision();
-            this.checkGoalCollision();
+            this.agents[i].checkGoalCollision(this.agents);
         } 
         this.score += 0.01;
     }
@@ -91,12 +64,12 @@ class Population {
 
     /**
      * @description - This method handles removing Agents from the canvas if
-     * they collide with a blocked Node in the Grid object.
+     * they collide with a blocked Node.
      */
-    killMember() {
+    killAgent() {
         for(var i = 0; i < this.agents.length; i++) {
             if(this.agents[i].CRASHED == true) {
-                this.new_agents.push(this.agents.splice(i, 1)[0]);
+                this.dead_agents.push(this.agents.splice(i, 1)[0]);
             }
         }
     }
@@ -111,22 +84,15 @@ class Population {
     /**
      * @returns {Array} - Returns new_agents array.
      */
-    getNewAgents() {
-        return this.new_agents;
+    getDeadAgents() {
+        return this.dead_agents;
     }
 
     /**
-     * @returns {Number} - Returns population size.
+     * @returns {Number} - Returns the population size.
      */
     getPopSize() {
         return this.population_size;
-    }
-
-    /**
-     * @returns {Array} - Returns data array.
-     */
-    getData() {
-        return this.data;
     }
 
     /**
@@ -136,11 +102,20 @@ class Population {
         return this.score;
     }
 
-    /**
-     * @returns {Array} - Returns empty new_agents array.
+     /**
+     * @returns {Array} - Clears the agents array.
      */
-    resetNewAgents() {
-        return this.new_agents = [];
+    clearPopulation() {
+        return this.agents = [];
+    }
+
+    /**
+     * @returns {Array} - Clears the new_agents array.
+     * @todo Refactor method name, since the new_agents array is specifically
+     * for dealing with dead agents?
+     */
+    resetDeadAgents() {
+        return this.dead_agents = [];
     }
 
     /**

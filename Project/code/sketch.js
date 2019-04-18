@@ -5,10 +5,11 @@ var start = false;
 var stop = false;
 var pause = false;
 var population;
+var data = [];
 
 function setup() {
   settings = new MapSettings(420, 400, 20);
-  agentSettings = new AgentSettings(3, 3, 3, 10, 10, 20);
+  agentSettings = new AgentSettings(3, 3, 3, 3, 10, 10);
   networkSettings = new NetworkSettings(20);
   createCanvas(settings.getWidth(), settings.getHeight());
   grid = new Grid(floor(settings.getWidth()/settings.getNodeSize()), 
@@ -49,7 +50,7 @@ function draw() {
   background(30); 
   grid.drawGrid();
   if(start == true && pause == false && stop == false) {
-  population.killMember();
+  population.killAgent();
   GA.evolve();
   population.runPopulation();
   population.drawPopulation();
