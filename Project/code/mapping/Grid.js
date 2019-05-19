@@ -30,13 +30,37 @@ class Grid {
                 if(i == 0 || i == settings_X || j == 0 || j == settings_Y) {
                     this.grid.push(new BlockedNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));  
                 }
-                else if(j == 6 && i%8 == 1) {
+                // else if(j == 6 && i%2 == 1) {
+                //     this.grid.push(new BlockedNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));  
+                // }
+                // else if(j == 20 && i%2 == 1) {
+                //     this.grid.push(new BlockedNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));  
+                // }
+                // else if(j == 13 && i%2 == 0) {
+                //     this.grid.push(new BlockedNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));  
+                // }
+                else if(j == 7 && i == 6 || j == 7 && i == 7 ||
+                        j == 7 && i == 8 || j == 7 && i == 9 ||
+                        j == 7 && i == 10 || j == 7 && i == 11 ||
+                        j == 7 && i == 12 || j == 7 && i == 13 ||
+                        j == 7 && i == 14) {
                     this.grid.push(new BlockedNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));  
                 }
-                else if(j == 20 && i%2 == 1) {
+                else if(j == 14 && i == 1 || j == 14 && i == 2 ||
+                        j == 14 && i == 3 || j == 14 && i == 4 ||
+                        j == 14 && i == 16 || j == 14 && i == 17 ||
+                        j == 14 && i == 18 || j == 14 && i == 19 ||
+                        j == 14 && i == 10 || j == 14 && i == 15 ||
+                        j == 14 && i == 5) {
                     this.grid.push(new BlockedNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));  
                 }
-                else if(j == 13 && i%3 == 0) {
+                else if(j == 21 && i == 3 || j == 21 && i == 4 ||
+                        j == 21 && i == 5 || j == 21 && i == 6 ||
+                        j == 21 && i == 7 || j == 21 && i == 8 ||
+                        j == 21 && i == 9 || j == 21 && i == 11 ||
+                        j == 21 && i == 12 || j == 21 && i == 13 ||
+                        j == 21 && i == 14 || j == 21 && i == 15 ||  
+                        j == 21 && i == 16 || j == 21 && i == 17) {
                     this.grid.push(new BlockedNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));  
                 }
                 else if(i == floor(settings_X/2) && j == 2){

@@ -30,8 +30,8 @@ class Population {
      * @see AgentSettings#getHeight
      */
     createPopulation(grid) {
-        // console.log(this.population_size);
-        for(var i = 0; i < this.population_size; i++) {
+        this.dead_agents = [];
+        for (var i = 0; i < this.population_size; i++) {
             this.agents[i] = new Agent(grid.getStartX(), grid.getStartY(), agentSettings.getWidth(), agentSettings.getHeight());
         }
     }
@@ -44,12 +44,16 @@ class Population {
      * @see #checkGoalCollision
      */
     runPopulation() {
-        for(var i = 0; i < this.agents.length; i++) {
-            this.agents[i].makeDecision(grid);
-            this.agents[i].checkCollision();
-            this.agents[i].checkGoalCollision(this.agents);
-        } 
-        this.score += 0.01;
+        if (counter == 0) {
+            for (var i = 0; i < this.agents.length; i++) {
+                this.agents[i].makeDecision(grid);
+                this.agents[i].checkCollision();
+                this.agents[i].checkGoalCollision(this.agents);
+            }
+            this.score += 0.01;
+            // console.log(this.agents.length);
+            // console.log(this.dead_agents.length);
+        }
     }
 
     /**
@@ -57,7 +61,7 @@ class Population {
      * @see Agent#show
      */
     drawPopulation() {
-        for(var i = 0; i < this.agents.length; i++) {
+        for (var i = 0; i < this.agents.length; i++) {
             this.agents[i].show();
         }
     }
@@ -67,8 +71,8 @@ class Population {
      * they collide with a blocked Node.
      */
     killAgent() {
-        for(var i = 0; i < this.agents.length; i++) {
-            if(this.agents[i].CRASHED == true) {
+        for (var i = 0; i < this.agents.length; i++) {
+            if (this.agents[i].CRASHED == true) {
                 this.dead_agents.push(this.agents.splice(i, 1)[0]);
             }
         }
@@ -102,9 +106,9 @@ class Population {
         return this.score;
     }
 
-     /**
-     * @returns {Array} - Clears the agents array.
-     */
+    /**
+    * @returns {Array} - Clears the agents array.
+    */
     clearPopulation() {
         return this.agents = [];
     }

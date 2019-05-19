@@ -12,10 +12,9 @@ class Genetic {
      * var GA = new Genetic(10);
      */
     constructor() {
-        this.mutation_rate = 0.1;
+        this.mutation_rate = 0.3;
         this.gen = 1;
         this.matingPool = new MatingPool();
-        this.counter = 0;
     }
 
     /**

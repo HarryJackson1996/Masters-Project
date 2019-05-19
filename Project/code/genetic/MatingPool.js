@@ -17,7 +17,7 @@ class MatingPool {
      * @see Population#getNewAgents
      */
     getMatingPool() {
-            this.newMatingPool()
+            this.mating_pool = [];
             for(var i = 0; i < population.getPopSize(); i++) {
                 var x = population.getDeadAgents()[i].fitness*100;
                 for(var j = 0; j < x; j++) {

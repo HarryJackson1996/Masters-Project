@@ -171,11 +171,14 @@ class NeuralNetwork {
       if (random(1) <= GA.getMutation()) {
         let offset = randomGaussian() * 0.1;
         let newx = x + offset;
+        // console.log("mutate");
+
         return newx;
       } else {
         return x;
       }
     }
+    
     this.weights_ih.map(mutate);
     this.weights_ho.map(mutate);
     this.bias_h.map(mutate);

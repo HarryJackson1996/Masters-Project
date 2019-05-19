@@ -28,7 +28,7 @@ class Agent {
         else {
             console.log("new")
             this.brain = new NeuralNetwork(6, networkSettings.getHiddenNodes(), 1);
-        }   
+        } 
     }
     
     /**
@@ -77,12 +77,15 @@ class Agent {
         for(var i = 0; i < agents.length; i++) {
             var hit = collideRectRect(a, b, grid.getWidth(), grid.getHeight(),
             agents[i].x, agents[i].y, agents[i].width, agents[i].height);
-            if(hit || this.gen >= 50){ 
+            if(hit || GA.getGenerations() >= 50){ 
                 data.push([population.getPopSize(), GA.getMutation(), GA.getGenerations(), population.getScore(), networkSettings.getHiddenNodes()]);
                 console.log(data);
                 GA.resetGen();
                 population.resetScore();
                 population.createPopulation(grid);
+                counter++;
+                // let agent = population.getAgents()[0];
+                // saveJSON(agent.brain, 'agent.json');
             } 
         }
     } 
@@ -144,16 +147,22 @@ class Agent {
                     }
             }
         }
-        // var distToGoal = dist(this.x, this.y, grid.getGoalX(), grid.getGoalY());
+        var distToGoal = dist(this.x, this.y, grid.getGoalX(), grid.getGoalY());
         // console.log(distToGoal);
         let inputs = [];
-        inputs[0] = this.x/100;
-        inputs[1] = this.y/100;
-        inputs[2] = closestBlocked/100;
-        inputs[3] = grid.getGoalX()/100;
-        inputs[4] = grid.getGoalY()/100;
-        inputs[5] = grid.getWidth()/100;
-        // inputs[6] = distToGoal;
+        inputs[0] = this.x/10;
+        inputs[1] = this.y/10;
+        inputs[2] = closestBlocked/10;
+        inputs[3] = grid.getGoalX()/10;
+        inputs[4] = grid.getGoalY()/10;
+        inputs[5] = distToGoal/10;
+
+
+        // inputs[6] = grid.getWidth()/100;
+        // inputs[7] = agentSettings.getUpVelocity();
+        // inputs[8] = agentSettings.getDownVelocity();
+        // inputs[9] = agentSettings.getLeftVelocity();
+        // inputs[10] = agentSettings.getRightVelocity();
        
         // for(var i = 0; i < inputs.length; i++) {
         //     console.log(i + ": " + inputs[i]);

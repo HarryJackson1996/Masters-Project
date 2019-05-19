@@ -42,6 +42,7 @@ class GUI {
             pause = false;
             start = true;
             stop = false;
+            counter = 0;
         }};
 
         this.pause = { Pause:function(){
@@ -60,9 +61,11 @@ class GUI {
             pause = false;
             start = false;
             population.clearPopulation();
-            console.clear();
+            population.resetDeadAgents();
             GA.resetGen();
             population.resetScore();
+            console.clear();
+            counter = 0;
         }};
 
         this.gui.add(this.start, 'Start');
@@ -78,7 +81,7 @@ class GUI {
             var hiddenElement = document.createElement('a');
             hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
             hiddenElement.target = '_blank';
-            hiddenElement.download = '4-3-1.csv';
+            hiddenElement.download = '0-1-3-4.csv';
             hiddenElement.click();
         }};
         this.gui.add(this.CSV, 'CSV').name("Download CSV");
@@ -98,8 +101,8 @@ class GUI {
      */
     static mapController() {
         var map_folder = this.gui.addFolder('Map settings');
-        map_folder.add(settings, 'SCREEN_WIDTH', 200, 800, 20, 'speed').name("Grid Width");
-        map_folder.add(settings, 'SCREEN_HEIGHT', 200, 800, 20).name("Grid Height");
+        map_folder.add(settings, 'SCREEN_WIDTH', 200, 1200, 10, 'speed').name("Grid Width");
+        map_folder.add(settings, 'SCREEN_HEIGHT', 200, 1000, 10).name("Grid Height");
         map_folder.add(settings, 'NODE_SIZE', 0, 100, 10).name("Node Size");
 
         this.update = { Update:function(){

@@ -19,7 +19,7 @@ class AgentSettings {
         this.RIGHT_VELOCITY = right;
         this.WIDTH = width;
         this.HEIGHT = height;
-        this.COLOUR = "#ffae23";
+        this.COLOUR = "#b400ff";
     }
 
     /**
