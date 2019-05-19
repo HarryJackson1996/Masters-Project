@@ -131,7 +131,7 @@ class GUI {
                     }
                 }
                 catch (error) {
-                    window.alert("nope");
+                    window.alert("Please change the node size! The grid width and height must be divisible by the node size.");
                 }
             }
         };
