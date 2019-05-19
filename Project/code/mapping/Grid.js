@@ -22,13 +22,13 @@ class Grid {
      * @see Node
      */
     createGrid() {
-        var settings_X = (((settings.getWidth()-1)/settings.getNodeSize())-1);
-        var settings_Y = (((settings.getHeight()-1)/settings.getNodeSize())-1);
+        var settings_X = (((settings.getWidth() - 1) / settings.getNodeSize()) - 1);
+        var settings_Y = (((settings.getHeight() - 1) / settings.getNodeSize()) - 1);
 
-        for(var i = 0; i < this.rows; i++) {
-            for(var j = 0; j < this.cols; j++) {
-                if(i == 0 || i == settings_X || j == 0 || j == settings_Y) {
-                    this.grid.push(new BlockedNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));  
+        for (var i = 0; i < this.rows; i++) {
+            for (var j = 0; j < this.cols; j++) {
+                if (i == 0 || i == settings_X || j == 0 || j == settings_Y) {
+                    this.grid.push(new BlockedNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));
                 }
                 // else if(j == 6 && i%2 == 1) {
                 //     this.grid.push(new BlockedNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));  
@@ -63,16 +63,16 @@ class Grid {
                 //         j == 21 && i == 16 || j == 21 && i == 17) {
                 //     this.grid.push(new BlockedNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));  
                 // }
-                else if(i == floor(settings_X/2) && j == 2){
-                    this.grid.push(new GoalNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize())); 
+                else if (i == floor(settings_X / 2) && j == 2) {
+                    this.grid.push(new GoalNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));
                 }
-                else if(i == floor(settings_X/2) && j == (settings_Y - 2)){
-                    this.grid.push(new StartNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize())); 
+                else if (i == floor(settings_X / 2) && j == (settings_Y - 2)) {
+                    this.grid.push(new StartNode(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));
                 }
-                else{
-                    this.grid.push(new Node(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));  
+                else {
+                    this.grid.push(new Node(i * settings.getNodeSize(), j * settings.getNodeSize(), settings.getNodeSize(), settings.getNodeSize()));
                 }
-            } 
+            }
         }
         return this.grid;
     }
@@ -82,7 +82,7 @@ class Grid {
      * @see Node#drawNode
      */
     drawGrid() {
-        for(var i = 0; i < this.grid.length; i++){
+        for (var i = 0; i < this.grid.length; i++) {
             this.grid[i].drawNode();
         }
     }
@@ -94,14 +94,14 @@ class Grid {
      * @see Node#setStart
      */
     moveStartNode() {
-        for(var i = 0; i < this.grid.length; i++){
-            if(mouseX > this.grid[i].x && mouseX < this.grid[i].x + this.grid[i].width
-            && mouseY > this.grid[i].y && mouseY < this.grid[i].y + this.grid[i].height) {
-                if(this.grid[i].start == true && mouseIsPressed) {
+        for (var i = 0; i < this.grid.length; i++) {
+            if (mouseX > this.grid[i].x && mouseX < this.grid[i].x + this.grid[i].width
+                && mouseY > this.grid[i].y && mouseY < this.grid[i].y + this.grid[i].height) {
+                if (this.grid[i].start == true && mouseIsPressed) {
                     this.start = true;
                     this.x = this.grid[i];
                 }
-                else if(this.start == true && mouseIsPressed && this.grid[i].goal !=true){
+                else if (this.start == true && mouseIsPressed && this.grid[i].goal != true) {
                     this.y = this.grid[i];
                     this.y.setStart();
                     this.x.setNormal();
@@ -113,7 +113,7 @@ class Grid {
             }
         }
     }
-    
+
     /**
      * @description - This method allows the user to click and drag the 
      * goal Node with their mouse and set its new location in the grid object.
@@ -121,14 +121,14 @@ class Grid {
      * @see Node#setGoal
      */
     moveGoalNode() {
-        for(var i = 0; i < this.grid.length; i++){
-            if(mouseX > this.grid[i].x && mouseX < this.grid[i].x + this.grid[i].width
-            && mouseY > this.grid[i].y && mouseY < this.grid[i].y + this.grid[i].height) {
-                if(this.grid[i].goal == true && mouseIsPressed) {
+        for (var i = 0; i < this.grid.length; i++) {
+            if (mouseX > this.grid[i].x && mouseX < this.grid[i].x + this.grid[i].width
+                && mouseY > this.grid[i].y && mouseY < this.grid[i].y + this.grid[i].height) {
+                if (this.grid[i].goal == true && mouseIsPressed) {
                     this.goal = true;
                     this.x = this.grid[i];
                 }
-                else if(this.goal == true && mouseIsPressed & this.grid[i].start !=true){
+                else if (this.goal == true && mouseIsPressed & this.grid[i].start != true) {
                     this.y = this.grid[i];
                     this.y.setGoal();
                     this.x.setNormal();
@@ -146,7 +146,7 @@ class Grid {
      * @see Node#getWidth
      */
     getWidth() {
-        for(var i = 0; this.grid.length; i++){ 
+        for (var i = 0; this.grid.length; i++) {
             return this.grid[i].getWidth();
         }
     }
@@ -156,7 +156,7 @@ class Grid {
      * @see Node#getHeight
      */
     getHeight() {
-        for(var i = 0; this.grid.length; i++){ 
+        for (var i = 0; this.grid.length; i++) {
             return this.grid[i].getHeight();
         }
     }
@@ -165,8 +165,8 @@ class Grid {
      * @returns - Returns the x position of the goal Node from the Grid object.
      */
     getGoalX() {
-        for(var i = 0; i < this.grid.length; i++){
-            if(this.grid[i].goal == true) {
+        for (var i = 0; i < this.grid.length; i++) {
+            if (this.grid[i].goal == true) {
                 //console.log(this.grid[i].x);
                 return this.grid[i].x;
             }
@@ -177,8 +177,8 @@ class Grid {
      * @returns - Returns the y position of the goal Node from the Grid object.
      */
     getGoalY() {
-        for(var i = 0; i < this.grid.length; i++){
-            if(this.grid[i].goal == true) {
+        for (var i = 0; i < this.grid.length; i++) {
+            if (this.grid[i].goal == true) {
                 return this.grid[i].y;
             }
         }
@@ -188,10 +188,10 @@ class Grid {
      * @returns - Returns the x position of the start Node from the Grid object.
      */
     getStartX() {
-        for(var i = 0; i < this.grid.length; i++){
-            if(this.grid[i].start == true) {
+        for (var i = 0; i < this.grid.length; i++) {
+            if (this.grid[i].start == true) {
                 //console.log(this.grid[i].x);
-                return this.grid[i].x + this.getWidth()/4;
+                return this.grid[i].x + this.getWidth() / 4;
             }
         }
     }
@@ -200,20 +200,20 @@ class Grid {
      * @returns - Returns the y position of the start Node from the Grid object.
      */
     getStartY() {
-        for(var i = 0; i < this.grid.length; i++){
-            if(this.grid[i].start == true) {
-                return this.grid[i].y + this.getHeight()/4;
+        for (var i = 0; i < this.grid.length; i++) {
+            if (this.grid[i].start == true) {
+                return this.grid[i].y + this.getHeight() / 4;
             }
         }
     }
-    
+
     /**
      * @description - Iterates over the Grid object (array) and calls the Node method 'clicked'.
      * @see Node#clicked
      */
     mouseClicked() {
-        for(var i = 0; i < this.grid.length; i++){
-            if(this.grid[i].goal != true && this.grid[i].start != true){
+        for (var i = 0; i < this.grid.length; i++) {
+            if (this.grid[i].goal != true && this.grid[i].start != true) {
                 this.grid[i].clicked();
             }
         }

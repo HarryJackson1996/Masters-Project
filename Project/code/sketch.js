@@ -13,8 +13,8 @@ function setup() {
   agentSettings = new AgentSettings(4, 4, 5, 5, 7, 7);
   networkSettings = new NetworkSettings(18);
   createCanvas(settings.getWidth(), settings.getHeight());
-  grid = new Grid(floor(settings.getWidth()/settings.getNodeSize()), 
-  floor(settings.getHeight()/settings.getNodeSize()));
+  grid = new Grid(floor(settings.getWidth() / settings.getNodeSize()),
+    floor(settings.getHeight() / settings.getNodeSize()));
   grid.createGrid();
   frameRate(60);
   population = new Population(600);
@@ -49,14 +49,14 @@ function setup() {
 }
 
 function draw() {
-  background(30); 
+  background(30);
   grid.drawGrid();
-  if(start == true && pause == false && stop == false) {
-  population.killAgent();
-  population.runPopulation();
-  GA.evolve();
-  population.drawPopulation();
-  } else if(pause == true) {
+  if (start == true && pause == false && stop == false) {
+    population.killAgent();
+    population.runPopulation();
+    GA.evolve();
+    population.drawPopulation();
+  } else if (pause == true) {
     population.drawPopulation();
   }
   grid.moveStartNode();

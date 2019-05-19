@@ -43,16 +43,16 @@ class Node {
      * @see setBlocked
      */
     clicked() {
-        if(mouseX > this.x && mouseX < this.x + this.width){      
-            if(mouseY > this.y && mouseY < this.y + this.height){ 
-                switch(true) {
-                    case this.blocked: 
-                    this.setNormal();
-                    break;
+        if (mouseX > this.x && mouseX < this.x + this.width) {
+            if (mouseY > this.y && mouseY < this.y + this.height) {
+                switch (true) {
+                    case this.blocked:
+                        this.setNormal();
+                        break;
 
-                    default: 
-                    this.setBlocked();
-                    break;
+                    default:
+                        this.setBlocked();
+                        break;
                 }
             }
         }
@@ -68,7 +68,7 @@ class Node {
         this.start = false;
         return;
     }
-    
+
     /**
      * @description - This method will set the current node equal to the goal node. 
      * The goal node is the node that the Agents are attempting to pathfind towards.
@@ -87,23 +87,23 @@ class Node {
      */
     setBlocked() {
         this.col = color(200, 0, 0);
-        return this.blocked = true;  
+        return this.blocked = true;
     }
 
     /**
      * @description - This method will set the current node equal to the start node. 
      * The start node handles where the Agents will spawn (their starting location).
      * @returns {Boolean} - Returns blocked state equal to true.
-     */    
+     */
     setStart() {
         this.col = color(0, 220, 255);
-        return this.start = true;  
+        return this.start = true;
     }
 
     /**
      * @returns {Boolean} - Returns the nodes x position.
      */
-    getX(){
+    getX() {
         return this.x;
     }
 
@@ -113,14 +113,14 @@ class Node {
     getY() {
         return this.y;
     }
-    
+
     /**
      * @returns {Boolean} - Returns the nodes width.
      */
     getWidth() {
         return this.width;
     }
- 
+
     /**
      * @returns {Boolean} - Returns the nodes height.
      */
@@ -143,7 +143,7 @@ class BlockedNode extends Node {
      * @property {(3:Number)} col - The colour of blocked node @default red.
      * @property {Boolean} blocked - Blocked Node default state is blocked.
      */
-    constructor(x, y, width, height){
+    constructor(x, y, width, height) {
         super(x, y, width, height);
         this.blocked = true;
         this.col = color(200, 0, 0);
@@ -165,7 +165,7 @@ class GoalNode extends Node {
      * @property {Boolean} blocked - Goal Node defaults to blocked.
      * @property {Boolean} goal - Goal Node default state is goal.
      */
-    constructor(x, y, width, height){
+    constructor(x, y, width, height) {
         super(x, y, width, height);
         this.goal = true;
         this.blocked = true;
@@ -177,7 +177,7 @@ class GoalNode extends Node {
  * @memberof Node
  */
 class StartNode extends Node {
-    
+
     /**
      * @param {Number} x - The x position of the Node object.
      * @param {Number} y - The y position of the Node object.
@@ -187,7 +187,7 @@ class StartNode extends Node {
      * @property {(3:Number)} col - The colour of start node @default blue.
      * @property {Boolean} start - Start Node default state is start.
      */
-    constructor(x, y, width, height){
+    constructor(x, y, width, height) {
         super(x, y, width, height);
         this.start = true;
         this.col = color(0, 220, 255);

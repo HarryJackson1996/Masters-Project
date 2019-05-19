@@ -27,9 +27,9 @@ class Genetic {
      * @see Population#resetScore
      */
     evolve() {
-        if(population.getAgents() == 0){
+        if (population.getAgents() == 0) {
             this.calculateFitness();
-            for(var i = 0; i < population.getPopSize(); i++){
+            for (var i = 0; i < population.getPopSize(); i++) {
                 population.getAgents()[i] = this.selection();
             }
             this.gen += 1;
@@ -44,16 +44,16 @@ class Genetic {
      */
     calculateFitness() {
         var maximum_fitness = 0;
-        for(var i = 0; i < population.getDeadAgents().length; i++) {   
+        for (var i = 0; i < population.getDeadAgents().length; i++) {
             var agent_fitness = population.getDeadAgents()[i].getFitness();
-            if(agent_fitness > maximum_fitness) {
+            if (agent_fitness > maximum_fitness) {
                 maximum_fitness = agent_fitness;
-            } 
+            }
         }
         // console.log("max fit: "+ maximum_fitness);
-        for(var i = 0; i < population.getDeadAgents().length; i++) {
-            population.getDeadAgents()[i].fitness /= maximum_fitness;       
-        }  
+        for (var i = 0; i < population.getDeadAgents().length; i++) {
+            population.getDeadAgents()[i].fitness /= maximum_fitness;
+        }
     }
 
     /**
@@ -71,9 +71,9 @@ class Genetic {
         var child = new Agent(grid.getStartX(), grid.getStartY(), agentSettings.getWidth(), agentSettings.getHeight(), picked.brain);
         child.brain.mutate(this.mutation_rate);
         // console.log("child" + child.brain.weights_ho.data);
-        return child;  
+        return child;
     }
-    
+
     /**
      * @returns {Number} - Resets the generation number back to 1.
      */
@@ -87,7 +87,7 @@ class Genetic {
     getMutation() {
         return this.mutation_rate;
     }
-    
+
     /**
      * @returns {Number} - Returns the generation number.
      */
