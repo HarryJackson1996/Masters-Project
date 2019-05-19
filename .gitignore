@@ -6,6 +6,6 @@ Project/docs/scripts
 Project/docs/styles
 
 *.html
-!.Project/code/index.html
+!.Project/code/sketch.html
 
 Project/Timer.js
