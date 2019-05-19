@@ -17,16 +17,16 @@ class MatingPool {
      * @see Population#getNewAgents
      */
     getMatingPool() {
-            this.mating_pool = [];
-            for(var i = 0; i < population.getPopSize(); i++) {
-                var x = population.getDeadAgents()[i].fitness*100;
-                for(var j = 0; j < x; j++) {
-                    this.mating_pool.push(population.getDeadAgents()[i]);
-                }
+        this.mating_pool = [];
+        for (var i = 0; i < population.getPopSize(); i++) {
+            var x = population.getDeadAgents()[i].fitness * 100;
+            for (var j = 0; j < x; j++) {
+                this.mating_pool.push(population.getDeadAgents()[i]);
             }
-            return this.mating_pool;
         }
-        
+        return this.mating_pool;
+    }
+
 
     /**
      * @returns - Returns empty mating_pool array.
@@ -34,5 +34,5 @@ class MatingPool {
     newMatingPool() {
         return this.mating_pool = [];
     }
-    
+
 }
